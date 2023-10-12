@@ -17,8 +17,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public String login(AdminLoginParam adminLoginParam) {
         //需要把用户传递的密码 md5()
-        String passMd5 = SecureUtil.md5(adminLoginParam.getPasswordMd5());
-        adminLoginParam.setPasswordMd5(passMd5);
+//        String passMd5 = SecureUtil.md5(adminLoginParam.getPasswordMd5());
+//        adminLoginParam.setPasswordMd5(passMd5);
         AdminUser adminUser = adminUserMapper.checkLogin(adminLoginParam.getUserName(), adminLoginParam.getPasswordMd5());
         if (adminUser == null){
             //登陆失败
