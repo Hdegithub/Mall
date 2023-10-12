@@ -13,7 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/manage-api/v1")
 public class GoodsController {
-
+    /**
+     * test
+     * @param pageNumber
+     * @param pageSize
+     * @param goodsName
+     * @param goodsSellStatus
+     * @return
+     */
     @ApiOperation(value = "商品列表" ,notes = "查询所有商品")
     @RequestMapping(value = "/goods/list", method = RequestMethod.GET)
     public Result list(@RequestParam(required = false) @ApiParam(value = "页码") Integer pageNumber,
