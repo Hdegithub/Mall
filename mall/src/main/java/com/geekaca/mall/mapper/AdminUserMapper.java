@@ -25,5 +25,5 @@ public interface AdminUserMapper {
 
     int updateByPrimaryKey(AdminUser record);
 
-    boolean checkLogin(@Param("loginName") String loginName, @Param("passwordMD5") String passwordMD5);
+    AdminUser checkLogin(@Param("loginName") String loginName, @Param("passwordMD5") String passwordMD5);
 }

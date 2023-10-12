@@ -25,6 +25,7 @@
     </select>
 
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_admin_user
         where  admin_user_id = #{adminUserId,jdbcType=BIGINT} 
@@ -81,10 +82,9 @@
         where   admin_user_id = #{adminUserId,jdbcType=BIGINT} 
     </update>
 
-    <select id="checkLogin" resultType="java.lang.Boolean">
-        SELECT * FROM tb_newbee_mall_admin_user where login_user_name = #{loginName}
-                                                  and login_password= #{passwordMD5}
-                                                  and locked = 0
-
+    <select id="checkLogin" resultMap="BaseResultMap">
+        SELECT *  FROM tb_newbee_mall_admin_user where login_user_name = #{loginName}
+                                                                and login_password= #{passwordMD5}
+                                                                and locked = 0
     </select>
 </mapper>
