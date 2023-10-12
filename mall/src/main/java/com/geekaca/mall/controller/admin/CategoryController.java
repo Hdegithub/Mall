@@ -3,6 +3,7 @@ package com.geekaca.mall.controller.admin;
 import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.service.AdminUserService;
 import com.geekaca.mall.service.GoodsCategoryService;
+import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/manage-api/v1")
@@ -25,8 +27,13 @@ public class CategoryController {
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public Result list(@RequestParam(required = false) @ApiParam(value = "页码") Integer pageNumber,
                        @RequestParam(required = false) @ApiParam(value = "每页条数") Integer pageSize,
-                       @RequestParam(required = false) @ApiParam(value = "类别名称") String categoryName) {
-        List<GoodsCategory> categoryList = categoryService.getAllGoodsCategories();
-        return ResultGenerator.genSuccessResult(categoryList);
+                       @RequestParam Map<String, Object> params){
+        params.put("page", pageNumber);
+        params.put("limit", pageSize);
+        if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        PageQueryUtil pageQueryUtil = new PageQueryUtil(params);
+        return ResultGenerator.genSuccessResult(categoryService.getAllGoodsCategories(pageQueryUtil));
     }
 }

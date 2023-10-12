@@ -31,10 +31,19 @@
         where  category_id = #{categoryId,jdbcType=BIGINT} 
     </select>
     <select id="findAll" resultMap="BaseResultMap">
-        SELECT
+        select
             *
-        FROM
-            tb_newbee_mall_goods_category;
+        from
+            tb_newbee_mall_goods_category
+        where is_deleted=0
+        order by category_rank desc,create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalCategories" resultType="java.lang.Integer">
+        select count(*)  from tb_newbee_mall_goods_category
+        where is_deleted = 0
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

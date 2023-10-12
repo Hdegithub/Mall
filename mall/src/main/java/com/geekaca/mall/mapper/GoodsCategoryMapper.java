@@ -1,6 +1,7 @@
 package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.GoodsCategory;
+import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public interface GoodsCategoryMapper {
 
     int updateByPrimaryKey(GoodsCategory record);
 
-    List<GoodsCategory> findAll();
+    List<GoodsCategory> findAll(PageQueryUtil pageUtil);
 
+    int getTotalCategories(PageQueryUtil pageUtil);
 }

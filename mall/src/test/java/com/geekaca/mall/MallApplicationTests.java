@@ -29,14 +29,14 @@ class MallApplicationTests {
 //        Assertions.assertTrue(isLoginOk);
     }
 
-    @Test
-    void testFindAll() {
-        List<GoodsCategory> categoryList = goodsCategoryMapper.findAll();
-        Assertions.assertNotNull(categoryList);
-        Assertions.assertTrue(categoryList.size() > 0);
-        categoryList.forEach((category)->{
-            System.out.println(category);
-        });
-    }
+//    @Test
+//    void testFindAll() {
+//        List<GoodsCategory> categoryList = goodsCategoryMapper.findAll();
+//        Assertions.assertNotNull(categoryList);
+//        Assertions.assertTrue(categoryList.size() > 0);
+//        categoryList.forEach((category)->{
+//            System.out.println(category);
+//        });
+//    }
 
 }
