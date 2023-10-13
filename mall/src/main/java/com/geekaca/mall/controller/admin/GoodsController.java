@@ -1,5 +1,6 @@
 package com.geekaca.mall.controller.admin;
 
+
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageResult;
@@ -14,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/manage-api/v1")
 public class GoodsController {
+
     @Autowired
     private GoodsInfoService goodsInfoService;
     /**
@@ -36,6 +37,7 @@ public class GoodsController {
                        @RequestParam(required = false) @ApiParam(value = "每页条数") Integer pageSize,
                        @RequestParam(required = false) @ApiParam(value = "商品名称") String goodsName,
                        @RequestParam(required = false) @ApiParam(value = "上架状态 0-上架 1-下架") Integer goodsSellStatus) {
+
         if (pageNumber == null){
             pageNumber = 1;
         }
@@ -50,5 +52,6 @@ public class GoodsController {
         result.setData(pageResult);
 
         return result;
+
     }
 }

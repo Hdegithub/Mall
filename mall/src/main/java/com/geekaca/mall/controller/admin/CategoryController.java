@@ -1,20 +1,18 @@
 package com.geekaca.mall.controller.admin;
 
-import com.geekaca.mall.domain.GoodsCategory;
-import com.geekaca.mall.service.AdminUserService;
 import com.geekaca.mall.service.GoodsCategoryService;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 @RestController
