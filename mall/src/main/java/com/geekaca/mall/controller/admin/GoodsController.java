@@ -26,7 +26,7 @@ public class GoodsController {
      * test
      * @param pageNumber
      * @param pageSize
-     * @param goodsName
+     * @param goodsName  模糊搜索
      * @param goodsSellStatus
      * @return
      */
