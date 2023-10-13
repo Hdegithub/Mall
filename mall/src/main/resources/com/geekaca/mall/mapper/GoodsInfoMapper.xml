@@ -39,6 +39,7 @@
         where  goods_id = #{goodsId,jdbcType=BIGINT} 
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_goods_info
         where  goods_id = #{goodsId,jdbcType=BIGINT} 
@@ -168,4 +169,24 @@
             update_time =  #{updateTime,jdbcType=TIMESTAMP}
         where   goods_id = #{goodsId,jdbcType=BIGINT} 
     </update>
+
+    <select id="findGoodsList" resultMap="BaseResultMap">
+        SELECT
+            goodInfo.* , category_name
+        FROM
+            tb_newbee_mall_goods_info goodInfo,
+            tb_newbee_mall_goods_category cate
+        WHERE
+            goodInfo.goods_category_id = cate.category_id
+            limit  #{limit}, #{pageSize}
+    </select>
+    <select id="findGoodsCount" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            tb_newbee_mall_goods_info goodInfo,
+            tb_newbee_mall_goods_category cate
+        WHERE
+            goodInfo.goods_category_id = cate.category_id
+    </select>
 </mapper>

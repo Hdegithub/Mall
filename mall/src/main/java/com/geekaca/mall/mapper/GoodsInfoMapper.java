@@ -1,6 +1,9 @@
 package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.GoodsInfo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author magol
@@ -22,4 +25,7 @@ public interface GoodsInfoMapper {
 
     int updateByPrimaryKey(GoodsInfo record);
 
+    List<GoodsInfo> findGoodsList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
+
+    int findGoodsCount();
 }
