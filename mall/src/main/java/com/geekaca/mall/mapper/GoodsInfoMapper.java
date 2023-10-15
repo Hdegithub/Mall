@@ -1,7 +1,6 @@
 package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.GoodsInfo;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,12 +11,11 @@ import java.util.List;
 * @createDate 2023-10-13 10:26:25
 * @Entity com.geekaca.mall.domain.GoodsInfo
 */
-@Mapper
 public interface GoodsInfoMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int addgoods(GoodsInfo record);
+    int insert(GoodsInfo record);
 
     int insertSelective(GoodsInfo record);
 

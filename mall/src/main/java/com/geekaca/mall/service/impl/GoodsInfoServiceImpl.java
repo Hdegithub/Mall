@@ -24,6 +24,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         PageResult pageResult = new PageResult(goodsList, goodsCount, pageSize, pageNo);
         return pageResult;
     }
+<<<<<<< HEAD
 
     @Override
     public String addGoods(GoodsInfo goodsInfo) {
@@ -39,4 +40,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         }
         return "添加成功";
     }
+=======
+>>>>>>> parent of 31f077c... 新增商品
 }
