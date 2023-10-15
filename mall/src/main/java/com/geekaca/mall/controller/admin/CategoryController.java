@@ -1,5 +1,7 @@
 package com.geekaca.mall.controller.admin;
 
+
+import com.geekaca.mall.controller.admin.param.CategoryParam;
 import com.geekaca.mall.service.GoodsCategoryService;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.Result;
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -21,6 +24,9 @@ public class CategoryController {
     @Resource
     private GoodsCategoryService categoryService;
 
+    /**
+     * 分类列表
+     */
     @ApiOperation(value = "商品分类列表" ,notes = "查询所有商品分类")
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public Result list(@RequestParam(required = false) @ApiParam(value = "页码") Integer pageNumber,
@@ -34,4 +40,36 @@ public class CategoryController {
         PageQueryUtil pageQueryUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(categoryService.getAllGoodsCategories(pageQueryUtil));
     }
+
+    /**
+     * 分类添加
+     */
+    @RequestMapping(value = "/categories", method = RequestMethod.POST)
+    public Result save(@RequestBody @Valid CategoryParam categoryParam) {
+        if (categoryService.saveCategory(categoryParam)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("分类名称重复");
+        }
+    }
+
+    /**
+     * 分类删除
+     */
+    @RequestMapping(value = "/categories", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Result delete(@RequestBody Integer[] ids) {
+        if (ids.length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        if (categoryService.deleteCategory(ids)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("删除失败");
+        }
+    }
+
+
+
+
 }

@@ -45,10 +45,24 @@
         select count(*)  from tb_newbee_mall_goods_category
         where is_deleted = 0
     </select>
+    <select id="selectByCategoryName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_category
+        where category_name = #{categoryName,jdbcType=VARCHAR}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_goods_category
         where  category_id = #{categoryId,jdbcType=BIGINT} 
+    </delete>
+    <delete id="deleteByIds">
+        delete
+        from tb_newbee_mall_goods_category
+        where category_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
     <insert id="insert" keyColumn="category_id" keyProperty="categoryId" parameterType="com.geekaca.mall.domain.GoodsCategory" useGeneratedKeys="true">
         insert into tb_newbee_mall_goods_category

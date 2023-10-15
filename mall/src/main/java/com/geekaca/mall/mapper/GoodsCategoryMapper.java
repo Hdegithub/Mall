@@ -3,6 +3,7 @@ package com.geekaca.mall.mapper;
 import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,4 +31,8 @@ public interface GoodsCategoryMapper {
     List<GoodsCategory> findAll(PageQueryUtil pageUtil);
 
     int getTotalCategories(PageQueryUtil pageUtil);
+
+    GoodsCategory selectByCategoryName(String categoryName);
+
+    int deleteByIds(Integer[] ids);
 }
