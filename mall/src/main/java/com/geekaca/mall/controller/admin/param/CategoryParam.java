@@ -2,10 +2,10 @@ package com.geekaca.mall.controller.admin.param;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Data
-public class CategoryParam {
+public class CategoryParam implements Serializable {
 
     private String categoryName;
 

@@ -34,5 +34,5 @@ public interface GoodsCategoryMapper {
 
     GoodsCategory selectByCategoryName(String categoryName);
 
-    int deleteByIds(Integer[] ids);
+    int deleteByIds(Long[] ids);
 }

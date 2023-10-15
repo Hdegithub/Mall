@@ -1,6 +1,7 @@
 package com.geekaca.mall.controller.admin;
 
 
+import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.controller.admin.param.CategoryParam;
 import com.geekaca.mall.service.GoodsCategoryService;
 import com.geekaca.mall.utils.PageQueryUtil;
@@ -57,12 +58,11 @@ public class CategoryController {
      * 分类删除
      */
     @RequestMapping(value = "/categories", method = RequestMethod.DELETE)
-    @ResponseBody
-    public Result delete(@RequestBody Integer[] ids) {
-        if (ids.length < 1) {
+    public Result delete(@RequestBody BatchIdParam batchIdParam) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (categoryService.deleteCategory(ids)) {
+        if (categoryService.deleteCategory(batchIdParam.getIds())) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

@@ -1,11 +1,8 @@
 package com.geekaca.mall.service;
 
 import com.geekaca.mall.controller.admin.param.CategoryParam;
-import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
-
-import java.util.List;
 
 public interface GoodsCategoryService {
     /**
@@ -27,7 +24,7 @@ public interface GoodsCategoryService {
      * @param ids
      * @return
      */
-    Boolean deleteCategory(Integer[] ids);
+    Boolean deleteCategory(Long[] ids);
 
     Boolean saveCategory(CategoryParam categoryParam);
 }
