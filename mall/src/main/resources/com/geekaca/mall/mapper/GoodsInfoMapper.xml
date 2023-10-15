@@ -193,4 +193,10 @@
         select *
         from tb_newbee_mall_goods_info
     </select>
+    <select id="selectByCategoryIdAndName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_info
+        where goods_name = #{goodsName,jdbcType=VARCHAR} and goods_category_id = #{goodsCategoryId,jdbcType=BIGINT}
+    </select>
 </mapper>

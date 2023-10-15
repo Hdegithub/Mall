@@ -61,4 +61,10 @@ public class GoodsController {
         BeanUtil.copyProperties(goodsAddParam, goodsInfo);
         return ResultGenerator.genSuccessResult(goodsInfoService.addGoods(goodsInfo));
     }
+
+    @RequestMapping(value = "/selectbyIdandName", method = RequestMethod.GET)
+    @ApiOperation(value = "模糊查询", notes = "模糊查询")
+    public GoodsInfo getById(String name, Long goodsCategoryid) {
+        return goodsInfoService.getgoodsByIdname(name, goodsCategoryid);
+    }
 }

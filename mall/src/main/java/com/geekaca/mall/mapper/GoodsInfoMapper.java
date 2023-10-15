@@ -1,6 +1,7 @@
 package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.GoodsInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 * @createDate 2023-10-13 10:26:25
 * @Entity com.geekaca.mall.domain.GoodsInfo
 */
+@Mapper
 public interface GoodsInfoMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -30,4 +32,7 @@ public interface GoodsInfoMapper {
     int findGoodsCount();
 
     List<GoodsInfo>selectgoodsall();
+
+    //商品模糊搜索
+    GoodsInfo selectByCategoryIdAndName(@Param("goodsName") String goodsName, @Param("goodsCategoryId") Long goodsCategoryId);
 }
