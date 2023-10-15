@@ -21,4 +21,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         PageResult pageResult = new PageResult(goodsList, goodsCount, pageSize, pageNo);
         return pageResult;
     }
+
+    @Override
+    public int insertGoods(GoodsInfo record) {
+        return 0;
+    }
 }

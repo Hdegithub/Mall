@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GoodsInfoService {
     PageResult findAllGoods(Integer pageNo, Integer pageSize);
+
+    int insertGoods(GoodsInfo record);
 }
