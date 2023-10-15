@@ -9,6 +9,7 @@ import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,5 +56,16 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
             return categoryMapper.insertSelective(goodsCategory) > 0;
         }
         return false;
+    }
+
+    @Override
+    public Boolean updateCategory(CategoryParam categoryParam) {
+        GoodsCategory goodsCategory = new GoodsCategory();
+        goodsCategory.setCategoryId(categoryParam.getCategoryId());
+        goodsCategory.setCategoryName(categoryParam.getCategoryName());
+        goodsCategory.setCategoryRank(categoryParam.getCategoryRank());
+        goodsCategory.setUpdateTime(new Date());
+        int i = categoryMapper.updateByPrimaryKeySelective(goodsCategory);
+        return i > 0;
     }
 }

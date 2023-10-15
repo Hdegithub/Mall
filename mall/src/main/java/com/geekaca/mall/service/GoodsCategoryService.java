@@ -27,4 +27,6 @@ public interface GoodsCategoryService {
     Boolean deleteCategory(Long[] ids);
 
     Boolean saveCategory(CategoryParam categoryParam);
+
+    Boolean updateCategory(CategoryParam categoryParam);
 }

@@ -55,6 +55,18 @@ public class CategoryController {
     }
 
     /**
+     * 分类修改
+     */
+    @RequestMapping(value = "/categories", method = RequestMethod.PUT)
+    public Result update(@RequestBody @Valid CategoryParam categoryParam) {
+        if (categoryService.updateCategory(categoryParam)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("修改失败！");
+        }
+    }
+
+    /**
      * 分类删除
      */
     @RequestMapping(value = "/categories", method = RequestMethod.DELETE)
