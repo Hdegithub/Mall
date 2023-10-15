@@ -234,4 +234,8 @@
              tb_newbee_mall_goods_category cate
         WHERE goodInfo.goods_category_id = cate.category_id
     </select>
+    <select id="selectgoodsall" resultMap="BaseResultMap">
+        select *
+        from tb_newbee_mall_goods_info
+    </select>
 </mapper>

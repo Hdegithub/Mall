@@ -1,6 +1,8 @@
 package com.geekaca.mall.controller.admin;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import com.geekaca.mall.controller.admin.param.GoodsAddParam;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageResult;
@@ -10,10 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -51,5 +52,13 @@ public class GoodsController {
         Result result = ResultGenerator.genSuccessResult();
         result.setData(pageResult);
         return result;
+    }
+
+    @RequestMapping(value = "/goods", method = RequestMethod.POST)
+    @ApiOperation(value = "新增商品信息", notes = "新增商品信息")
+    public Result save(@RequestBody @Valid GoodsAddParam goodsAddParam) {
+        GoodsInfo goodsInfo = new GoodsInfo();
+        BeanUtil.copyProperties(goodsAddParam, goodsInfo);
+        return ResultGenerator.genSuccessResult(goodsInfoService.addGoods(goodsInfo));
     }
 }

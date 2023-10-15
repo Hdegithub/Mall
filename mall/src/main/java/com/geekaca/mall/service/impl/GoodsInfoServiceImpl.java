@@ -5,10 +5,13 @@ import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageResult;
+import com.geekaca.mall.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Autowired
@@ -23,7 +26,17 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     }
 
     @Override
-    public int insertGoods(GoodsInfo record) {
-        return 0;
+    public String addGoods(GoodsInfo goodsInfo) {
+        //向数据库插入商品数据
+        int addgoods = goodsInfoMapper.addgoods(goodsInfo);
+        List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectgoodsall();
+        if (addgoods > 0) {
+            for (int i = 0; i < goodsInfoList.size(); i++) {
+                goodsInfoList.add(goodsInfo);
+            }
+        }else {
+            return "添加失败";
+        }
+        return "添加成功";
     }
 }

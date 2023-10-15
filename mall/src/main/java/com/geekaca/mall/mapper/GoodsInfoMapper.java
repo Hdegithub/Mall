@@ -30,4 +30,6 @@ public interface GoodsInfoMapper {
     List<GoodsInfo> findGoodsList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
 
     int findGoodsCount();
+
+    List<GoodsInfo>selectgoodsall();
 }
