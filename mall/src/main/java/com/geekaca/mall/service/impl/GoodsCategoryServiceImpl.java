@@ -2,6 +2,8 @@ package com.geekaca.mall.service.impl;
 
 import com.geekaca.mall.controller.admin.param.CategoryParam;
 import com.geekaca.mall.controller.vo.MallIndexCategoryVO;
+import com.geekaca.mall.controller.vo.SecondLevelCategoryVO;
+import com.geekaca.mall.controller.vo.ThirdLevelCategoryVO;
 import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.mapper.GoodsCategoryMapper;
 import com.geekaca.mall.service.GoodsCategoryService;
@@ -74,7 +76,10 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Override
     public List<MallIndexCategoryVO> getCategoriesForIndex() {
-
+        List<ThirdLevelCategoryVO> categoriesForThird = categoryMapper.getCategoriesForThird();
+        List<SecondLevelCategoryVO> categoriesForSecond = categoryMapper.getCategoriesForSecond();
+        
+        List<MallIndexCategoryVO> indexCategoryList= categoryMapper.getCategoriesForIndex();
         return null;
     }
 }

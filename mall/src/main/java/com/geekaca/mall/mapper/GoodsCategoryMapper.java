@@ -1,5 +1,8 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.vo.MallIndexCategoryVO;
+import com.geekaca.mall.controller.vo.SecondLevelCategoryVO;
+import com.geekaca.mall.controller.vo.ThirdLevelCategoryVO;
 import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,4 +38,9 @@ public interface GoodsCategoryMapper {
     GoodsCategory selectByCategoryName(String categoryName);
 
     int deleteByIds(Long[] ids);
+
+    //三级分类
+    List<MallIndexCategoryVO> getCategoriesForIndex();
+    List<SecondLevelCategoryVO> getCategoriesForSecond();
+    List<ThirdLevelCategoryVO> getCategoriesForThird();
 }

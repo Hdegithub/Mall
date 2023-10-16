@@ -52,6 +52,7 @@
         where category_name = #{categoryName,jdbcType=VARCHAR}
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_goods_category
         where  category_id = #{categoryId,jdbcType=BIGINT} 
@@ -149,4 +150,20 @@
             update_user =  #{updateUser,jdbcType=INTEGER}
         where   category_id = #{categoryId,jdbcType=BIGINT} 
     </update>
+
+    <select id="getCategoriesForIndex" resultMap="BaseResultMap">
+        select category_id,category_level,category_name
+        from mall_db_v2.tb_newbee_mall_goods_category
+        where category_level=1;
+    </select>
+    <select id="getCategoriesForSecond" resultMap="BaseResultMap">
+        select category_id,parent_id,category_level,category_name
+        from mall_db_v2.tb_newbee_mall_goods_category
+        where category_level=2;
+    </select>
+    <select id="getCategoriesForThird" resultMap="BaseResultMap">
+        select category_id,category_level,category_name
+        from mall_db_v2.tb_newbee_mall_goods_category
+        where category_level=3;
+    </select>
 </mapper>
