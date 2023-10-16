@@ -19,7 +19,9 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Override
     public PageResult getAllGoodsCategories(PageQueryUtil pageUtil) {
+        //查询符合条件的所有 类别数据
         List<GoodsCategory> categoryList = categoryMapper.findAll(pageUtil);
+        // 查询数量
         int total = categoryMapper.getTotalCategories(pageUtil);
         PageResult pageResult = new PageResult(categoryList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
