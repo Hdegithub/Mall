@@ -1,8 +1,11 @@
 package com.geekaca.mall.service;
 
 import com.geekaca.mall.controller.admin.param.CategoryParam;
+import com.geekaca.mall.controller.vo.MallIndexCategoryVO;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
+
+import java.util.List;
 
 public interface GoodsCategoryService {
     /**
@@ -29,4 +32,6 @@ public interface GoodsCategoryService {
     Boolean saveCategory(CategoryParam categoryParam);
 
     Boolean updateCategory(CategoryParam categoryParam);
+
+    List<MallIndexCategoryVO> getCategoriesForIndex();
 }

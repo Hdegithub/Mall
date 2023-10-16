@@ -1,5 +1,5 @@
   
-package com.geekaca.mall.geekmall.controller.vo;
+package com.geekaca.mall.controller.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

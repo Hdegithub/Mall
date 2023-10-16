@@ -1,6 +1,7 @@
 package com.geekaca.mall.service.impl;
 
 import com.geekaca.mall.controller.admin.param.CategoryParam;
+import com.geekaca.mall.controller.vo.MallIndexCategoryVO;
 import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.mapper.GoodsCategoryMapper;
 import com.geekaca.mall.service.GoodsCategoryService;
@@ -69,5 +70,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         goodsCategory.setUpdateTime(new Date());
         int i = categoryMapper.updateByPrimaryKeySelective(goodsCategory);
         return i > 0;
+    }
+
+    @Override
+    public List<MallIndexCategoryVO> getCategoriesForIndex() {
+
+        return null;
     }
 }
