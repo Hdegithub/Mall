@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Slf4j
@@ -47,24 +48,10 @@ public class GoodsController {
         if (pageSize == null) {
             pageSize = 20;
         }
-        PageResult pageResult = goodsInfoService.findAllGoods(pageNumber, pageSize ,goodsName);
+        PageResult pageResult = goodsInfoService.findAllGoods(pageNumber, pageSize, goodsName);
         //还需要一个查询，查询符合条件的记录条数
         Result result = ResultGenerator.genSuccessResult();
         result.setData(pageResult);
         return result;
-    }
-
-    @RequestMapping(value = "/goods", method = RequestMethod.POST)
-    @ApiOperation(value = "新增商品信息", notes = "新增商品信息")
-    public Result save(@RequestBody @Valid GoodsAddParam goodsAddParam) {
-        GoodsInfo goodsInfo = new GoodsInfo();
-        BeanUtil.copyProperties(goodsAddParam, goodsInfo);
-        return ResultGenerator.genSuccessResult(goodsInfoService.addGoods(goodsInfo));
-    }
-
-    @RequestMapping(value = "/selectbyIdandName", method = RequestMethod.GET)
-    @ApiOperation(value = "模糊查询", notes = "模糊查询")
-    public GoodsInfo getById(@RequestParam(required = true) String name, @RequestParam(required = false) Long goodsCategoryid) {
-        return goodsInfoService.getgoodsByIdname(name, goodsCategoryid);
     }
 }

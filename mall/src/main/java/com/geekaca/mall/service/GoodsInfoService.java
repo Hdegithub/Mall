@@ -1,14 +1,8 @@
 package com.geekaca.mall.service;
 
-import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.utils.PageResult;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface GoodsInfoService {
-    PageResult findAllGoods(Integer pageNo, Integer pageSize , String goodsName);
-
-    String addGoods(GoodsInfo goodsInfo);
-
-    GoodsInfo getgoodsByIdname(String goodsName,Long goodsCategoryId);
+    PageResult findAllGoods(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize, @Param("goodsName") String goodsName);
 }
