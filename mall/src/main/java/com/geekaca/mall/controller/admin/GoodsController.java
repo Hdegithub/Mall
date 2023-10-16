@@ -47,7 +47,7 @@ public class GoodsController {
         if (pageSize == null) {
             pageSize = 20;
         }
-        PageResult pageResult = goodsInfoService.findAllGoods(pageNumber, pageSize);
+        PageResult pageResult = goodsInfoService.findAllGoods(pageNumber, pageSize ,goodsName);
         //还需要一个查询，查询符合条件的记录条数
         Result result = ResultGenerator.genSuccessResult();
         result.setData(pageResult);

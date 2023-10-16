@@ -176,9 +176,13 @@
         FROM
             tb_newbee_mall_goods_info goodInfo,
             tb_newbee_mall_goods_category cate
-        WHERE
-            goodInfo.goods_category_id = cate.category_id
-            limit  #{limit}, #{pageSize}
+            WHERE
+        1=1
+        <if test="goodsName !=null and goodsName!=''">
+            and goodInfo.goods_name like CONCAT('%',#{goodsName},'%')
+        </if>
+        and goodInfo.goods_category_id = cate.category_id
+        limit  #{limit}, #{pageSize}
     </select>
     <select id="findGoodsCount" resultType="java.lang.Integer">
         SELECT
@@ -187,7 +191,11 @@
             tb_newbee_mall_goods_info goodInfo,
             tb_newbee_mall_goods_category cate
         WHERE
-            goodInfo.goods_category_id = cate.category_id
+        1=1
+        <if test="goodsName !=null and goodsName!=''">
+            and   goodInfo.goods_name like CONCAT('%',#{goodsName},'%')
+        </if>
+          and  goodInfo.goods_category_id = cate.category_id
     </select>
     <select id="selectgoodsall" resultMap="BaseResultMap">
         select *
