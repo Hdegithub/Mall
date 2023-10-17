@@ -247,6 +247,9 @@
             <if test="goodsName != null">
                 and goods_name like concat('%', #{goodsName}, '%')
             </if>
+            <if test="goodsName != null">
+                and goods_name like concat('%', #{goodsName}, '%')
+            </if>
         </where>
 
     </select>
@@ -274,5 +277,46 @@
              tb_newbee_mall_goods_info goodInfo
         WHERE cfg.goods_id = goodInfo.goods_id
           and cfg.config_type = 3
+    </select>
+    <select id="selectGoodsByCategoryId" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            tb_newbee_mall_goods_info
+        WHERE
+            goods_category_id = #{categoryId}
+    </select>
+    <select id="findGoodsListBySearch" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalGoodsBySearch" resultType="java.lang.Integer">
+        select count(*) from tb_newbee_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
     </select>
 </mapper>

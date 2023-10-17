@@ -5,11 +5,11 @@ import com.geekaca.mall.controller.admin.param.GoodsAddParam;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
 import com.geekaca.mall.service.GoodsInfoService;
+import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,5 +48,11 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public boolean updateSellStatus(Long[] ids, int sellStatus) {
         return goodsInfoMapper.UpdateSellStatus(ids, sellStatus) > 0;
+    }
+    public PageResult searchGoods(PageQueryUtil pageUtil) {
+        List<GoodsInfo> goodsList = goodsInfoMapper.findGoodsListBySearch(pageUtil);
+        int total = goodsInfoMapper.getTotalGoodsBySearch(pageUtil);
+        PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
     }
 }

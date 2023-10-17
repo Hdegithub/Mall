@@ -2,6 +2,7 @@ package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.controller.vo.HotGoodsesVO;
 import com.geekaca.mall.domain.GoodsInfo;
+import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,4 +43,10 @@ public interface GoodsInfoMapper {
     int UpdateSellStatus(@Param("orderIds") Long[] orderIds,@Param("sellStatus") int sellStatus);
 
 
+
+    List<GoodsInfo> selectGoodsByCategoryId(@Param("categoryId") Long categoryId);
+
+    List<GoodsInfo> findGoodsListBySearch(PageQueryUtil pageUtil);
+
+    int getTotalGoodsBySearch(PageQueryUtil pageUtil);
 }
