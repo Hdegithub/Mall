@@ -74,6 +74,8 @@
             parameterType="com.geekaca.mall.domain.GoodsInfo" useGeneratedKeys="true">
         insert into tb_newbee_mall_goods_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsCategoryId != null">goods_category_id,
+            </if>
             <if test="goodsId != null">
                 goods_id,
             </if>
@@ -95,6 +97,9 @@
             <if test="tag != null">
                 tag ,
             </if>
+            <if test="goodsSellStatus != null">
+                goods_sell_status ,
+            </if>
             <if test="goodsCoverImg != null">
                 goods_cover_img ,
             </if>
@@ -103,6 +108,9 @@
             </if>
         </trim>
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsCategoryId != null">
+                #{goodsCategoryId,jdbcType=BIGINT},
+            </if>
             <if test="goodsId != null">
                 #{goodsId,jdbcType=BIGINT},
             </if>
@@ -123,6 +131,9 @@
             </if>
             <if test="tag != null">
                 #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSellStatus != null">
+                #{goodsSellStatusg,jdbcType=INTEGERT},
             </if>
             <if test="goodsCoverImg != null">
                 #{goodsCoverImg,jdbcType=VARCHAR},

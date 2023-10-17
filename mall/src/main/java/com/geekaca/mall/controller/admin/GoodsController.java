@@ -1,9 +1,7 @@
 package com.geekaca.mall.controller.admin;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
-import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageResult;
 import com.geekaca.mall.utils.Result;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @Slf4j
@@ -53,5 +50,16 @@ public class GoodsController {
         Result result = ResultGenerator.genSuccessResult();
         result.setData(pageResult);
         return result;
+    }
+
+    //添加商品
+    @RequestMapping(value = "/goods/list", method = RequestMethod.POST)
+    public Result list(@RequestBody @Valid GoodsAddParam goodsAddParam) {
+        Boolean addGood = goodsInfoService.addGood(goodsAddParam);
+        if (addGood == true) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("添加失败");
+        }
     }
 }

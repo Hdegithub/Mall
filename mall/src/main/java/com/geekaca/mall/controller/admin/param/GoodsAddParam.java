@@ -1,4 +1,4 @@
-  
+
 package com.geekaca.mall.controller.admin.param;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -15,12 +15,12 @@ public class GoodsAddParam {
 
     @ApiModelProperty("商品名称")
     @NotEmpty(message = "商品名称不能为空")
-    @Length(max = 128,message = "商品名称内容过长")
+    @Length(max = 128, message = "商品名称内容过长")
     private String goodsName;
 
     @ApiModelProperty("商品简介")
     @NotEmpty(message = "商品简介不能为空")
-    @Length(max = 200,message = "商品简介内容过长")
+    @Length(max = 200, message = "商品简介内容过长")
     private String goodsIntro;
 
     @ApiModelProperty("分类id")
@@ -52,10 +52,11 @@ public class GoodsAddParam {
 
     @ApiModelProperty("商品标签")
     @NotEmpty(message = "商品标签不能为空")
-    @Length(max = 16,message = "商品标签内容过长")
+    @Length(max = 16, message = "商品标签内容过长")
     private String tag;
 
-    private Byte goodsSellStatus;
+    //  private Byte goodsSellStatus;
+    private Integer goodsSellStatus;
 
     @ApiModelProperty("商品详情")
     @NotEmpty(message = "商品详情不能为空")
