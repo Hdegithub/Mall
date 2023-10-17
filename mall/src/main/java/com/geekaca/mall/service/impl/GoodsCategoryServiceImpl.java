@@ -76,10 +76,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Override
     public List<MallIndexCategoryVO> getCategoriesForIndex() {
-        List<ThirdLevelCategoryVO> categoriesForThird = categoryMapper.getCategoriesForThird();
-        List<SecondLevelCategoryVO> categoriesForSecond = categoryMapper.getCategoriesForSecond();
-        
-        List<MallIndexCategoryVO> indexCategoryList= categoryMapper.getCategoriesForIndex();
-        return null;
+        List<MallIndexCategoryVO> indexCategoryList = categoryMapper.getCategoriesForIndex();
+        return indexCategoryList;
     }
 }

@@ -41,6 +41,4 @@ public interface GoodsCategoryMapper {
 
     //三级分类
     List<MallIndexCategoryVO> getCategoriesForIndex();
-    List<SecondLevelCategoryVO> getCategoriesForSecond();
-    List<ThirdLevelCategoryVO> getCategoriesForThird();
 }
