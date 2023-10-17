@@ -155,6 +155,23 @@
         where category_id = #{categoryId,jdbcType=BIGINT}
     </update>
 
+    <select id="selectByLevelAndParentIdsAndNumber"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_category
+        where parent_id in
+        <foreach item="parentId" collection="parentIds" open="(" separator="," close=")">
+            #{parentId,jdbcType=BIGINT}
+        </foreach>
+        and category_level = #{categoryLevel,jdbcType=TINYINT}
+        and is_deleted = 0
+        order by category_rank desc
+        <if test="number>0">
+            limit #{number}
+        </if>
+    </select>
+
     <select id="getCategoriesForIndex" resultMap="BaseResultMap">
         SELECT *
         FROM tb_newbee_mall_goods_category category
@@ -162,5 +179,36 @@
              tb_newbee_mall_goods_category cate on cate.parent_id = category.category_id
                  right join
              tb_newbee_mall_goods_category c on c.parent_id = cate.category_id
+    </select>
+
+    <select id="getCategoryList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_category
+        <where>
+            <if test="parentId != null and parentId != '' ">
+                and parent_id = #{parentId}
+            </if>
+            <if test="categoryLevel!=null and categoryLevel!=''">
+                and category_level = #{categoryLevel}
+            </if>
+            order by category_rank desc
+            <if test="start != null and limit != null">
+                limit #{start},#{limit}
+            </if>
+        </where>
+    </select>
+    <select id="getTotalCategoryCounts" resultType="java.lang.Integer">
+        select
+        count(*)
+        from tb_newbee_mall_goods_category
+        <where>
+            <if test="parentId != null and parentId != '' ">
+                and parent_id = #{parentId}
+            </if>
+            <if test="categoryLevel!=null and categoryLevel!=''">
+                and category_level = #{categoryLevel}
+            </if>
+        </where>
     </select>
 </mapper>

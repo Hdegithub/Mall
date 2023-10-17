@@ -41,4 +41,11 @@ public interface GoodsCategoryMapper {
 
     //三级分类
     List<MallIndexCategoryVO> getCategoriesForIndex();
+
+    List<GoodsCategory> selectByLevelAndParentIdsAndNumber(@Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
+
+
+    int getTotalCategoryCounts(PageQueryUtil pageQueryUtil);
+
+    List<GoodsCategory> getCategoryList(PageQueryUtil pageQueryUtil);
 }

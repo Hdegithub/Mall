@@ -34,4 +34,6 @@ public interface GoodsCategoryService {
     Boolean updateCategory(CategoryParam categoryParam);
 
     List<MallIndexCategoryVO> getCategoriesForIndex();
+
+    PageResult getCategoryPage(PageQueryUtil pageQueryUtil);
 }

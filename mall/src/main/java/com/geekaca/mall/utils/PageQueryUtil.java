@@ -23,7 +23,12 @@ public class PageQueryUtil extends LinkedHashMap<String, Object> {
     public PageQueryUtil(Map<String, Object> params) {
        //把params这个Map中的所有key value都放入自己的Map中
         this.putAll(params);
-
+        if (params.get("page") == null){
+            params.put("page", 1);
+        }
+        if (params.get("limit") == null){
+            params.put("limit", 10);
+        }
         //分页参数
         this.page = Integer.parseInt(params.get("page").toString());
         this.limit = Integer.parseInt(params.get("limit").toString());
