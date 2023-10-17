@@ -1,5 +1,6 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.vo.HotGoodsesVO;
 import com.geekaca.mall.domain.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +36,6 @@ public interface GoodsInfoMapper {
 
     //商品模糊搜索
     List<GoodsInfo> selectPageByName(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize,@Param("goodsName") String goodsName);
+
+    List<HotGoodsesVO>  findHotGoodsList();
 }

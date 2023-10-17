@@ -22,7 +22,13 @@
         <result property="updateUser" column="update_user" jdbcType="INTEGER"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-
+    <resultMap id="hotGoodsMap" type="com.geekaca.mall.controller.vo.HotGoodsesVO">
+        <id property="goodsId" column="goods_id" jdbcType="BIGINT"/>
+        <result property="sellingPrice" column="selling_price" jdbcType="INTEGER"/>
+        <result property="goodsCoverImg" column="goods_cover_img" jdbcType="VARCHAR"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="configName" column="config_name" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
         goods_id
         ,goods_name,goods_intro,
@@ -220,7 +226,7 @@
             goodInfo.goods_category_id = cate.category_id
 
             <if test="goodsName != null">
-              and  goods_name like concat('%', #{goodsName}, '%')
+                and goods_name like concat('%', #{goodsName}, '%')
             </if>
         </where>
 
@@ -238,5 +244,16 @@
             </if>
         </where>
         limit #{limit}, #{pageSize}
+    </select>
+    <select id="findHotGoodsList" resultMap="BaseResultMap">
+        SELECT goodInfo.goods_id,
+               goodInfo.selling_price,
+               goodInfo.goods_cover_img,
+               cfg.config_name,
+               goodInfo.goods_name
+        FROM tb_newbee_mall_index_config cfg,
+             tb_newbee_mall_goods_info goodInfo
+        WHERE cfg.goods_id = goodInfo.goods_id
+          and cfg.config_type = 3
     </select>
 </mapper>
