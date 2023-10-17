@@ -2,6 +2,8 @@ package com.geekaca.mall.controller.admin;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.geekaca.mall.common.Constants;
+import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
@@ -59,10 +61,29 @@ public class GoodsController {
     @ApiOperation(value = "新增商品信息", notes = "新增商品信息")
     public Result list(@RequestBody @Valid GoodsAddParam goodsAddParam) {
         Boolean addGood = goodsInfoService.addGood(goodsAddParam);
-        if (addGood==true) {
+        if (addGood == true) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("添加失败");
+        }
+    }
+
+    /**
+     * 下架商品
+     */
+    @RequestMapping(value = "/goods/status/{sellStatus}", method = RequestMethod.PUT)
+    @ApiOperation(value = "批量修改销售状态", notes = "批量修改销售状态")
+    public Result delete(@RequestBody BatchIdParam batchIdParam, @PathVariable("sellStatus") int sellStatus) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        if (sellStatus != Constants.SELL_STATUS_UP && sellStatus != Constants.SELL_STATUS_DOWN) {
+            return ResultGenerator.genFailResult("状态异常！");
+        }
+        if (goodsInfoService.updateSellStatus(batchIdParam.getIds(),sellStatus)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("修改失败");
         }
     }
 }

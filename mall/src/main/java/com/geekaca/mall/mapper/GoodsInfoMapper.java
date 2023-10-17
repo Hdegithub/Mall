@@ -38,4 +38,8 @@ public interface GoodsInfoMapper {
     List<GoodsInfo> selectPageByName(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize,@Param("goodsName") String goodsName);
 
     List<HotGoodsesVO>  findHotGoodsList();
+
+    int UpdateSellStatus(@Param("orderIds") Long[] orderIds,@Param("sellStatus") int sellStatus);
+
+
 }

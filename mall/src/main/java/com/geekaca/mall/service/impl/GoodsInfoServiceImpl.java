@@ -9,6 +9,7 @@ import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,5 +43,10 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean updateSellStatus(Long[] ids, int sellStatus) {
+        return goodsInfoMapper.UpdateSellStatus(ids, sellStatus) > 0;
     }
 }

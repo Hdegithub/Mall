@@ -9,4 +9,6 @@ public interface GoodsInfoService {
     PageResult findAllGoods(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize, @Param("goodsName") String goodsName);
 
     Boolean addGood(GoodsAddParam goodsAddParam);
+
+    boolean updateSellStatus(Long[] ids,int sellStatus);
 }
