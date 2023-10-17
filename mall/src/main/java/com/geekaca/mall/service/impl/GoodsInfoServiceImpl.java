@@ -1,6 +1,8 @@
 package com.geekaca.mall.service.impl;
 
 
+import com.geekaca.mall.common.NewBeeMallException;
+import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
@@ -54,5 +56,14 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         int total = goodsInfoMapper.getTotalGoodsBySearch(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
+    }
+
+    @Override
+    public GoodsInfo getGoodsById(Long goodsId) {
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(goodsId);
+        if (goodsInfo == null) {
+            NewBeeMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
+        }
+        return goodsInfo;
     }
 }

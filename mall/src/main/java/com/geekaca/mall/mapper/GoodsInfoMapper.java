@@ -49,4 +49,5 @@ public interface GoodsInfoMapper {
     List<GoodsInfo> findGoodsListBySearch(PageQueryUtil pageUtil);
 
     int getTotalGoodsBySearch(PageQueryUtil pageUtil);
+
 }

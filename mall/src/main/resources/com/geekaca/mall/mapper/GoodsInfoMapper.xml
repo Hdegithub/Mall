@@ -319,4 +319,7 @@
             </if>
         </where>
     </select>
+    <select id="getGoodsById" resultType="com.geekaca.mall.domain.GoodsInfo">
+
+    </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.geekaca.mall.controller.front;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.common.Constants;
 import com.geekaca.mall.common.NewBeeMallException;
+import com.geekaca.mall.controller.vo.GoodsDetailVO;
+import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
@@ -25,10 +28,14 @@ public class MallGoodsController {
     private GoodsInfoService goodsInfoService;
 
     @GetMapping("/goods/detail/{goodsId}")
-    public Result getGoodsById(@PathVariable("goodsId") Long goodsId) {
-
-
-        return null;
+    public Result<GoodsDetailVO> getGoodsById(@PathVariable("goodsId") Long goodsId) {
+        GoodsInfo goods = goodsInfoService.getGoodsById(goodsId);
+        GoodsDetailVO goodsDetailVO = new GoodsDetailVO();
+        //集合拷贝
+        BeanUtil.copyProperties(goods, goodsDetailVO);
+        //图片地址
+        goodsDetailVO.setGoodsCarouselList(goods.getGoodsCarousel().split(","));
+        return ResultGenerator.genSuccessResult(goodsDetailVO);
     }
 
     @GetMapping("/search")
