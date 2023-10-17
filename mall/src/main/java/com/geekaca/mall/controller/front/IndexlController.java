@@ -26,8 +26,10 @@ public class IndexlController {
     @RequestMapping("/index-infos")
     public Result<IndexInfoVO> indexInfo(){
         IndexInfoVO indexInfoVO = new IndexInfoVO();
+        //轮播图集合
         List<CarouselVO> mallcarousels = indexService.getCarousels(Constants.INDEX_CAROUSEL_NUMBER);
         indexInfoVO.setCarousels(mallcarousels);
+        //热销商品
         List<HotGoodsesVO> hotGoods  = indexService.getHotGoods();
         indexInfoVO.setHotGoodses(hotGoods);
         return ResultGenerator.genSuccessResult(indexInfoVO);

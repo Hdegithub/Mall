@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 /**
  * 首页轮播图VO
+ * 值对象
  */
 @Data
 public class CarouselVO implements Serializable {

@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * VO
  * Value Object 值对象 充当数据载体
+ *
+ * Serializable 对象序列化， 当计算机内存不足的时候，会把一些数据自动的保存到磁盘
  */
 @Data
 public class IndexInfoVO implements Serializable {
