@@ -10,7 +10,7 @@ import java.util.List;
  *
  
  */
-public class PageResult implements Serializable {
+public class PageResult<T> implements Serializable {
 
     //总记录数
     private int totalCount;
