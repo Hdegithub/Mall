@@ -1,7 +1,9 @@
 package com.geekaca.mall.controller.admin;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
+import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageResult;
 import com.geekaca.mall.utils.Result;
@@ -53,10 +55,11 @@ public class GoodsController {
     }
 
     //添加商品
-    @RequestMapping(value = "/goods/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/goods", method = RequestMethod.POST)
+    @ApiOperation(value = "新增商品信息", notes = "新增商品信息")
     public Result list(@RequestBody @Valid GoodsAddParam goodsAddParam) {
         Boolean addGood = goodsInfoService.addGood(goodsAddParam);
-        if (addGood == true) {
+        if (addGood==true) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("添加失败");

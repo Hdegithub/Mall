@@ -27,17 +27,17 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     @Override
     public Boolean addGood(GoodsAddParam goodsAddParam) {
         GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setGoodsName(goodsAddParam.getGoodsName());
+        goodsInfo.setGoodsIntro(goodsAddParam.getGoodsIntro());
+        goodsInfo.setOriginalPrice(goodsAddParam.getOriginalPrice());
+        goodsInfo.setSellingPrice(goodsAddParam.getSellingPrice());
+        goodsInfo.setStockNum(goodsAddParam.getStockNum());
+        goodsInfo.setTag(goodsAddParam.getTag());
+        goodsInfo.setGoodsSellStatus(goodsAddParam.getGoodsSellStatus());
+        goodsInfo.setGoodsCoverImg(goodsAddParam.getGoodsCoverImg());
+        goodsInfo.setGoodsDetailContent(goodsAddParam.getGoodsDetailContent());
         int addGoods = goodsInfoMapper.addGoods(goodsInfo);
         if (addGoods > 0) {
-            goodsInfo.setGoodsName(goodsAddParam.getGoodsName());
-            goodsInfo.setGoodsIntro(goodsAddParam.getGoodsIntro());
-            goodsInfo.setOriginalPrice(goodsAddParam.getOriginalPrice());
-            goodsInfo.setSellingPrice(goodsAddParam.getSellingPrice());
-            goodsInfo.setStockNum(goodsAddParam.getStockNum());
-            goodsInfo.setTag(goodsAddParam.getTag());
-            goodsInfo.setGoodsSellStatus(goodsAddParam.getGoodsSellStatus());
-            goodsInfo.setGoodsCoverImg(goodsAddParam.getGoodsCoverImg());
-            goodsInfo.setGoodsDetailContent(goodsAddParam.getGoodsDetailContent());
             return true;
         } else {
             return false;

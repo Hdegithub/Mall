@@ -88,8 +88,8 @@
             <if test="originalPrice != null">
                 original_price,
             </if>
-            <if test="ellingPrice != null">
-                selling_prices ,
+            <if test="sellingPrice != null">
+                selling_price ,
             </if>
             <if test="stockNum != null">
                 stock_num ,
@@ -107,7 +107,8 @@
                 goods_detail_content ,
             </if>
         </trim>
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="goodsCategoryId != null">
                 #{goodsCategoryId,jdbcType=BIGINT},
             </if>
@@ -121,19 +122,19 @@
                 #{goodsIntro,jdbcType=VARCHAR},
             </if>
             <if test="originalPrice != null">
-                #{originalPrice,jdbcType=INTEGERT},
+                #{originalPrice,jdbcType=INTEGER},
             </if>
-            <if test="ellingPrice != null">
-                #{ellingPrice,jdbcType=INTEGERT},
+            <if test="sellingPrice != null">
+                #{sellingPrice,jdbcType=INTEGER},
             </if>
             <if test="stockNum != null">
-                #{stockNum,jdbcType=INTEGERT},
+                #{stockNum,jdbcType=INTEGER},
             </if>
             <if test="tag != null">
                 #{tag,jdbcType=VARCHAR},
             </if>
             <if test="goodsSellStatus != null">
-                #{goodsSellStatusg,jdbcType=INTEGERT},
+                #{goodsSellStatus,jdbcType=INTEGER},
             </if>
             <if test="goodsCoverImg != null">
                 #{goodsCoverImg,jdbcType=VARCHAR},

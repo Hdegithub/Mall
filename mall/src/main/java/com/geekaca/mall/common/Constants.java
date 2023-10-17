@@ -12,7 +12,7 @@ public class Constants {
      */
 
 //    public  static String FILE_UPLOAD_DIC = "C:\\Users\\86139\\Desktop\\Tool\\MallImages\\goods-img\\";//上传文件的默认url前缀，根据部署设置自行修改
-    public final static String FILE_UPLOAD_DIC = "C:\\dev\\codes\\newbee-mall-api\\static-files\\goods-img\\";//上传文件的默认url前缀，根据部署设置自行修改
+    public final static String FILE_UPLOAD_DIC = "D:\\\\vue.img\\\\goods-img\\";//上传文件的默认url前缀，根据部署设置自行修改
 
     public final static int INDEX_CAROUSEL_NUMBER = 5;//首页轮播图数量(可根据自身需求修改)
 
