@@ -265,6 +265,7 @@
                 goods_name like concat('%', #{goodsName}, '%')
             </if>
         </where>
+        order by create_time desc
         limit #{limit}, #{pageSize}
     </select>
     <select id="findHotGoodsList" resultMap="BaseResultMap">
@@ -279,12 +280,9 @@
           and cfg.config_type = 3
     </select>
     <select id="selectGoodsByCategoryId" resultMap="BaseResultMap">
-        SELECT
-            *
-        FROM
-            tb_newbee_mall_goods_info
-        WHERE
-            goods_category_id = #{categoryId}
+        SELECT *
+        FROM tb_newbee_mall_goods_info
+        WHERE goods_category_id = #{categoryId}
     </select>
     <select id="findGoodsListBySearch" resultMap="BaseResultMap">
         select
