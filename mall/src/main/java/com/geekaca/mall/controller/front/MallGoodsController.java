@@ -7,6 +7,7 @@ import com.geekaca.mall.controller.vo.GoodsDetailVO;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.service.GoodsInfoService;
 import com.geekaca.mall.utils.PageQueryUtil;
+
 import com.geekaca.mall.utils.PageResult;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
@@ -45,7 +46,9 @@ public class MallGoodsController {
                          @RequestParam(required = false) @ApiParam(value = "排序关键字") String orderBy,
                          @RequestParam(required = false) @ApiParam(value = "页码") Integer pageNumber
     ) {
+
         Map params = new HashMap();
+//        FrontPageVo frontPageVo = new FrontPageVo();
         if (goodsCategoryId == null && !StringUtils.hasText(keyword)) {
             NewBeeMallException.fail("搜索参数错误");
         }
@@ -62,5 +65,20 @@ public class MallGoodsController {
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         PageResult pageResult = goodsInfoService.searchGoods(pageUtil);
         return ResultGenerator.genSuccessResult(pageResult);
+//        frontPageVo.setPageNumber(pageNumber);
+//        frontPageVo.setKeyword(keyword);
+//        frontPageVo.setGoodsCategoryId(goodsCategoryId);
+//        frontPageVo.setOrderBy(orderBy);
+//        //对keyword做过滤 去掉空格
+//        if (StringUtils.hasText(keyword)) {
+//            frontPageVo.setKeyword(keyword);
+//        }
+//        if (StringUtils.hasText(orderBy)) {
+//            frontPageVo.setOrderBy(orderBy);
+//        }
+//
+//        PageResult result = goodsInfoService.searchFrontGoods(frontPageVo);
+//        return ResultGenerator.genSuccessResult(result);
+//>>>>>>> cb75049 (前台 搜索)
     }
 }

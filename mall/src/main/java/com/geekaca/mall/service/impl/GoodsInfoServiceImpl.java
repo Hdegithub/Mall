@@ -4,6 +4,7 @@ package com.geekaca.mall.service.impl;
 import com.geekaca.mall.common.NewBeeMallException;
 import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
+import com.geekaca.mall.controller.vo.FrontPageVo;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
 import com.geekaca.mall.service.GoodsInfoService;
@@ -48,15 +49,19 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     }
 
     @Override
+
     public boolean updateSellStatus(Long[] ids, int sellStatus) {
         return goodsInfoMapper.UpdateSellStatus(ids, sellStatus) > 0;
     }
+
+    @Override
     public PageResult searchGoods(PageQueryUtil pageUtil) {
         List<GoodsInfo> goodsList = goodsInfoMapper.findGoodsListBySearch(pageUtil);
         int total = goodsInfoMapper.getTotalGoodsBySearch(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
+
 
     @Override
     public GoodsInfo getGoodsById(Long goodsId) {
@@ -67,3 +72,4 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         return goodsInfo;
     }
 }
+
