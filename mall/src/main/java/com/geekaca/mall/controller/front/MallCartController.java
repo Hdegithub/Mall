@@ -1,5 +1,6 @@
 package com.geekaca.mall.controller.front;
 
+import cn.hutool.json.JSONUtil;
 import com.auth0.jwt.interfaces.Claim;
 import com.geekaca.mall.common.Constants;
 import com.geekaca.mall.common.ServiceResultEnum;
@@ -54,7 +55,16 @@ public class MallCartController {
         Claim idClaim = stringClaimMap.get("id");
         String uid = idClaim.asString();
         long userId = Long.parseLong(uid);
-        return ResultGenerator.genSuccessResult(cartItemService.getMyShoppingCartItems(userId));
+        List<ShoppingCartItemVO> itemList = cartItemService.getMyShoppingCartItems(userId);
+        double totalPrice = 0;
+        for (int i = 0; i < itemList.size(); i++) {
+            ShoppingCartItemVO shoppingCartItemVO = itemList.get(i);
+            totalPrice += shoppingCartItemVO.getSellingPrice();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalPrice", totalPrice);
+        map.put("goodList", itemList);
+        return ResultGenerator.genSuccessResult(map);
     }
 
     @PostMapping("/shop-cart")

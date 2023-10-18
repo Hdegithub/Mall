@@ -29,10 +29,10 @@ public interface ShoppingCartItemService {
     /**
      * 获取我的购物车中的列表数据
      *
-     * @param newBeeMallUserId
+     * @param mallUserId
      * @return
      */
-    List<ShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId);
+    List<ShoppingCartItemVO> getMyShoppingCartItems(Long mallUserId);
 
 
 }

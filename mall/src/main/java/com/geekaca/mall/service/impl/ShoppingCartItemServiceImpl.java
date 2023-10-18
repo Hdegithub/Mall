@@ -35,8 +35,8 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
     }
 
     @Override
-    public List<ShoppingCartItemVO> getMyShoppingCartItems(Long newBeeMallUserId) {
-        List<ShoppingCartItemVO> shoppingCartItemVOS = cartItemMapper.selectByUserId(newBeeMallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
+    public List<ShoppingCartItemVO> getMyShoppingCartItems(Long mallUserId) {
+        List<ShoppingCartItemVO> shoppingCartItemVOS = cartItemMapper.selectByUserId(mallUserId, Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER);
         return shoppingCartItemVOS;
     }
 

@@ -34,5 +34,5 @@ public interface ShoppingCartItemMapper {
     int getTotalMyShoppingCartItems(PageQueryUtil pageUtil);
 
 
-    List<ShoppingCartItemVO> selectByUserId(@Param("userId") Long newBeeMallUserId, @Param("number") int number);
+    List<ShoppingCartItemVO> selectByUserId(@Param("userId") Long userId, @Param("number") int number);
 }
