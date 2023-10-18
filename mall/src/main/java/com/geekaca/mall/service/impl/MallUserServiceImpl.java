@@ -6,6 +6,8 @@ import com.geekaca.mall.service.MallUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MallUserServiceImpl implements MallUserService {
     @Autowired
@@ -13,7 +15,11 @@ public class MallUserServiceImpl implements MallUserService {
 
     @Override
     public boolean register(MallUserRegisterParam mallUserRegisterParam) {
-        Integer isRegisterOk = userMapper.insertUser(mallUserRegisterParam);
-        return isRegisterOk == 1;
+        List<MallUserRegisterParam> user = userMapper.findUser(mallUserRegisterParam.getLoginName());
+        if (user == null) {
+            Integer isRegisterOk = userMapper.insertUser(mallUserRegisterParam);
+            return isRegisterOk == 1;
+        }
+        return false;
     }
 }

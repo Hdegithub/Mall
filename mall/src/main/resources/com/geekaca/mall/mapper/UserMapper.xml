@@ -28,6 +28,7 @@
         where  user_id = #{userId,jdbcType=BIGINT} 
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_user
         where  user_id = #{userId,jdbcType=BIGINT} 
@@ -105,9 +106,15 @@
         where   user_id = #{userId,jdbcType=BIGINT} 
     </update>
 <!--注册-->
-    <insert id="insertUser" keyColumn="user_id" keyProperty="userId" parameterType="com.geekaca.mall.domain.User" useGeneratedKeys="true">
+    <insert id="insertUser" parameterType="com.geekaca.mall.domain.User">
         insert into tb_newbee_mall_user(login_name,password_md5)
         values (#{registerUser.loginName,jdbcType=VARCHAR}
                ,#{registerUser.password,jdbcType=VARCHAR})
     </insert>
+    <select id="findUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_newbee_mall_user
+        where  login_name = #{userName,jdbcType=BIGINT}
+    </select>
 </mapper>

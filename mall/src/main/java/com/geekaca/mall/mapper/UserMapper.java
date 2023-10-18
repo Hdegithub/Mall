@@ -4,6 +4,8 @@ import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.domain.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
 * @author magol
 * @description 针对表【tb_newbee_mall_user】的数据库操作Mapper
@@ -26,4 +28,5 @@ public interface UserMapper {
 
     //注册
     Integer insertUser(@Param("registerUser")MallUserRegisterParam mallUserRegisterParam);
+    List<MallUserRegisterParam> findUser(@Param("userName")String userName);
 }
