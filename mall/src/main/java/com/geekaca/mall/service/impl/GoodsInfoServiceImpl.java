@@ -49,7 +49,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     }
 
     @Override
-
     public boolean updateSellStatus(Long[] ids, int sellStatus) {
         return goodsInfoMapper.UpdateSellStatus(ids, sellStatus) > 0;
     }
@@ -59,9 +58,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         List<GoodsInfo> goodsList = goodsInfoMapper.findGoodsListBySearch(pageUtil);
         int total = goodsInfoMapper.getTotalGoodsBySearch(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
+
         return pageResult;
     }
-
 
     @Override
     public GoodsInfo getGoodsById(Long goodsId) {
