@@ -3,8 +3,10 @@ package com.geekaca.mall;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.geekaca.mall.domain.GoodsCategory;
+import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.AdminUserMapper;
 import com.geekaca.mall.mapper.GoodsCategoryMapper;
+import com.geekaca.mall.mapper.GoodsInfoMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ class MallApplicationTests {
     private AdminUserMapper adminUserMapper;
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
+
     @Test
     void testLogin() {
         String md5Str = SecureUtil.md5("123456");
@@ -39,4 +44,19 @@ class MallApplicationTests {
 //        });
 //    }
 
+    /**
+     * 单元测试，测试用例
+     * 节省精力
+     */
+    @Test
+    public void testSelectPageByName(){
+        List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectPageByName(0, 10, "华为note");
+        GoodsInfo goodsInfo = goodsInfoList.get(0);
+        Assertions.assertNotNull(goodsInfoList);
+        Assertions.assertNotNull(goodsInfo);
+        String goodsName = goodsInfo.getGoodsName();
+        boolean isContains = goodsName.contains("华为note");
+        Assertions.assertTrue(isContains);
+
+    }
 }
