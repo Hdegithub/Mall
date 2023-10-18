@@ -123,4 +123,18 @@
             update_user =  #{updateUser,jdbcType=INTEGER}
         where   carousel_id = #{carouselId,jdbcType=INTEGER} 
     </update>
+    <select id="findCarouselList" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            mall_db_v2.tb_newbee_mall_carousel
+        where is_deleted = 0
+            limit  #{limit}, #{pageSize}
+    </select>
+    <select id="findCarouselCount" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            mall_db_v2.tb_newbee_mall_carousel
+    </select>
 </mapper>

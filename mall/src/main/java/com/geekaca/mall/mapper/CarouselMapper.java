@@ -29,4 +29,8 @@ public interface CarouselMapper {
     int updateByPrimaryKey(Carousel record);
 
     List<CarouselVO> getCarousels(@Param("Count") Integer count);
+
+    List<Carousel> findCarouselList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
+
+    int findCarouselCount();
 }
