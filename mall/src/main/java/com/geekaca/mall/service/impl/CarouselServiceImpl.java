@@ -1,6 +1,7 @@
 package com.geekaca.mall.service.impl;
 
 
+import com.geekaca.mall.controller.admin.param.CarouselParam;
 import com.geekaca.mall.domain.Carousel;
 import com.geekaca.mall.mapper.CarouselMapper;
 import com.geekaca.mall.service.CarouselService;
@@ -22,5 +23,15 @@ public class CarouselServiceImpl implements CarouselService {
         int carouselCount = carouselMapper.findCarouselCount();
         PageResult pageResult = new PageResult(carouselList, carouselCount, pageSize, pageNo);
         return pageResult;
+    }
+
+    @Override
+    public int saveCarousel(CarouselParam carouselParam) {
+        return carouselMapper.insertByParam(carouselParam);
+    }
+
+    @Override
+    public int deleteCarousels(Long[] ids) {
+        return carouselMapper.deleteByCarouselIds(ids);
     }
 }

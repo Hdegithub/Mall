@@ -80,6 +80,15 @@
                 <if test="updateUser != null">#{updateUser,jdbcType=INTEGER},</if>
         </trim>
     </insert>
+    <insert id="insertByParam">
+        insert into tb_newbee_mall_carousel
+        ( carousel_url,redirect_url
+        ,carousel_rank
+        )
+        values (#{carouselUrl,jdbcType=VARCHAR},#{redirectUrl,jdbcType=VARCHAR}
+               ,#{carouselRank,jdbcType=INTEGER}
+               )
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.geekaca.mall.domain.Carousel">
         update tb_newbee_mall_carousel
         <set>
@@ -122,6 +131,14 @@
             update_time =  #{updateTime,jdbcType=TIMESTAMP},
             update_user =  #{updateUser,jdbcType=INTEGER}
         where   carousel_id = #{carouselId,jdbcType=INTEGER} 
+    </update>
+    <update id="deleteByCarouselIds">
+        update  tb_newbee_mall_carousel
+        set is_deleted =  1
+        where carousel_id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
     <select id="findCarouselList" resultMap="BaseResultMap">
         SELECT

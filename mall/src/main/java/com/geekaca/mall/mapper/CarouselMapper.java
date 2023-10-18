@@ -1,5 +1,6 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.admin.param.CarouselParam;
 import com.geekaca.mall.controller.vo.CarouselVO;
 import com.geekaca.mall.domain.Carousel;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,8 @@ public interface CarouselMapper {
     List<Carousel> findCarouselList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
 
     int findCarouselCount();
+
+    int insertByParam(CarouselParam carouselParam);
+
+    int deleteByCarouselIds(@Param("ids") Long[] ids);
 }

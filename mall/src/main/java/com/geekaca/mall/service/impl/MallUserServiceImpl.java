@@ -4,7 +4,9 @@ import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.mapper.UserMapper;
 import com.geekaca.mall.service.MallUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MallUserServiceImpl implements MallUserService {
     @Autowired
     private UserMapper userMapper;
