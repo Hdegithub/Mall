@@ -1,6 +1,8 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author magol
@@ -22,4 +24,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    //注册
+    Integer insertUser(@Param("registerUser")MallUserRegisterParam mallUserRegisterParam);
 }

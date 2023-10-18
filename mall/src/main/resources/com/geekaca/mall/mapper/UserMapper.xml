@@ -64,6 +64,7 @@
                 <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.geekaca.mall.domain.User">
         update tb_newbee_mall_user
         <set>
@@ -103,4 +104,10 @@
             create_time =  #{createTime,jdbcType=TIMESTAMP}
         where   user_id = #{userId,jdbcType=BIGINT} 
     </update>
+<!--注册-->
+    <insert id="insertUser" keyColumn="user_id" keyProperty="userId" parameterType="com.geekaca.mall.domain.User" useGeneratedKeys="true">
+        insert into tb_newbee_mall_user(login_name,password_md5)
+        values (#{registerUser.loginName,jdbcType=VARCHAR}
+               ,#{registerUser.password,jdbcType=VARCHAR})
+    </insert>
 </mapper>
