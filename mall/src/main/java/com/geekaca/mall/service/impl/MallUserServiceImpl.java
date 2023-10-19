@@ -2,6 +2,7 @@ package com.geekaca.mall.service.impl;
 
 import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
+import com.geekaca.mall.controller.front.param.MallUserUpdateParam;
 import com.geekaca.mall.domain.User;
 import com.geekaca.mall.exceptions.LoginNameExsistsException;
 import com.geekaca.mall.mapper.UserMapper;
@@ -25,7 +26,7 @@ public class MallUserServiceImpl implements MallUserService {
         if (userCount < 1) {
             Integer isRegisterOk = userMapper.insertUser(mallUserRegisterParam);
             return isRegisterOk == 1;
-        }else{
+        } else {
             //说明用户名已经被占用, 抛出自定义异常  用户名已经被占用
             throw new LoginNameExsistsException("用户名已经被占用!");
         }
@@ -35,7 +36,7 @@ public class MallUserServiceImpl implements MallUserService {
     @Override
     public String login(MallUserLoginParam userLoginParam) {
         User user = userMapper.userCheckLogin(userLoginParam.getLoginName(), userLoginParam.getPasswordMd5());
-        if (user == null){
+        if (user == null) {
             //登陆失败
             return null;
         }
@@ -60,10 +61,27 @@ public class MallUserServiceImpl implements MallUserService {
         }
     }
 
+    @Override
     public PageResult findUsers(Integer pageNo, Integer pageSize) {
-        List<User> userlList = userMapper.findUserList((pageNo - 1) * pageSize, pageSize);
+        List<User> userList = userMapper.findUserList((pageNo - 1) * pageSize, pageSize);
         int userCount = userMapper.findUserCount();
-        PageResult pageResult = new PageResult(userlList, userCount, pageSize, pageNo);
+        PageResult pageResult = new PageResult(userList, userCount, pageSize, pageNo);
         return pageResult;
+    }
+
+    @Override
+    public boolean updateUserInfo(MallUserUpdateParam mallUserUpdateParam, long uidLong) {
+        User updateUser = new User();
+        updateUser.setNickName(mallUserUpdateParam.getNickName());
+        updateUser.setPasswordMd5(mallUserUpdateParam.getPasswordMd5());
+        updateUser.setIntroduceSign(mallUserUpdateParam.getIntroduceSign());
+        int updateById = userMapper.updateById(updateUser, uidLong);
+
+        if (updateById > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

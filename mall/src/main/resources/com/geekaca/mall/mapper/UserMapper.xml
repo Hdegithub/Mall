@@ -118,7 +118,8 @@
             create_time =  #{createTime,jdbcType=TIMESTAMP}
         where   user_id = #{userId,jdbcType=BIGINT} 
     </update>
-<!--注册-->
+
+    <!--注册-->
     <insert id="insertUser" parameterType="com.geekaca.mall.domain.User">
         insert into tb_newbee_mall_user(login_name,password_md5)
         values (#{registerUser.loginName,jdbcType=VARCHAR}
@@ -149,4 +150,11 @@
           and password_md5 = #{passwordMD5}
           and locked_flag = 0
     </select>
+    <update id="updateById">
+        update tb_newbee_mall_user
+        set nick_name =  #{user.nickName},
+            password_md5 =  #{user.passwordMd5},
+            introduce_sign =  #{user.introduceSign}
+        where user_id = #{uid}
+    </update>
 </mapper>

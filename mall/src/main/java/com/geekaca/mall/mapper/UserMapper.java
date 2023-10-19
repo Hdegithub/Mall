@@ -42,4 +42,6 @@ public interface UserMapper {
     List<User> findUserList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
 
     int findUserCount();
+
+    int updateById(@Param("user")User updateUser, @Param("uid")long uidLong);
 }
