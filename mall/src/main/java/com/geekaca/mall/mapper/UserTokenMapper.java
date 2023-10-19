@@ -3,9 +3,9 @@ package com.geekaca.mall.mapper;
 import com.geekaca.mall.domain.UserToken;
 
 /**
-* @author magol
+* @author 29484
 * @description 针对表【tb_newbee_mall_user_token】的数据库操作Mapper
-* @createDate 2023-10-18 15:26:12
+* @createDate 2023-10-19 15:41:43
 * @Entity com.geekaca.mall.domain.UserToken
 */
 public interface UserTokenMapper {

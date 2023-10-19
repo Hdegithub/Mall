@@ -5,7 +5,6 @@ import com.geekaca.mall.common.NewBeeMallException;
 import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.admin.param.GoodsAddParam;
 import com.geekaca.mall.controller.admin.param.GoodsUpdateParam;
-import com.geekaca.mall.controller.vo.FrontPageVo;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
 import com.geekaca.mall.service.GoodsInfoService;
@@ -84,7 +83,6 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
         List<GoodsInfo> goodsList = goodsInfoMapper.findGoodsListBySearch(pageUtil);
         int total = goodsInfoMapper.getTotalGoodsBySearch(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
-
         return pageResult;
     }
 
