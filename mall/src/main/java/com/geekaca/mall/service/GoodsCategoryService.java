@@ -38,5 +38,5 @@ public interface GoodsCategoryService {
 
     PageResult getCategoryPage(PageQueryUtil pageQueryUtil);
 
-    GoodsCategory getCategoryById(Long cateId);
+    GoodsCategory getCategoryByid(Long categoryId);
 }

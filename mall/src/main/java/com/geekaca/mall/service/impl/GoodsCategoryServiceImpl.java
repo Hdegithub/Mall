@@ -144,8 +144,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
     }
 
     @Override
-    public GoodsCategory getCategoryById(Long cateId) {
-        GoodsCategory goodsCategory = categoryMapper.selectByPrimaryKey(cateId);
-        return goodsCategory;
+    public GoodsCategory getCategoryByid(Long categoryId) {
+        return categoryMapper.selectByPrimaryKey(categoryId);
     }
 }

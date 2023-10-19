@@ -97,9 +97,10 @@ public class GoodsController {
 
     /**
      * 修改
+     *
      * @RequestBody 设置 把用户提交的JSON数据 转换为 Java 对象
      * @Valid 搭配  @NotNull(message = "商品id不能为空")
-     *     @Min(value = 1, message = "商品id不能为空")  使用，实现对用户提交参数的校验
+     * @Min(value = 1, message = "商品id不能为空")  使用，实现对用户提交参数的校验
      */
     @RequestMapping(value = "/goods", method = RequestMethod.PUT)
     @ApiOperation(value = "修改商品信息", notes = "修改商品信息")
@@ -124,20 +125,19 @@ public class GoodsController {
         if (goodsById == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
-        //查找三个级别的信息
+        //查找商品类别（三级分类）
         GoodsCategory thirdCategory;
-        GoodsCategory secondCategory;
-        GoodsCategory firstCategory;
-        Long cateId = goodsById.getGoodsCategoryId();
-        //用商品的类别id 去查询 类别名字
-        thirdCategory = categoryService.getCategoryById(cateId);
-        if (thirdCategory != null){
+        GoodsCategory secondCategory = null;
+        GoodsCategory firstCategory = null;
+        Long categoryId = goodsById.getGoodsCategoryId();
+        thirdCategory = categoryService.getCategoryByid(categoryId);
+        if (thirdCategory != null) {
             goodsInfo.put("thirdCategory", thirdCategory);
-            secondCategory = categoryService.getCategoryById(thirdCategory.getParentId());
-            if (secondCategory != null){
+            secondCategory = categoryService.getCategoryByid(thirdCategory.getParentId());
+            if (secondCategory != null) {
                 goodsInfo.put("secondCategory", secondCategory);
-                firstCategory = categoryService.getCategoryById(secondCategory.getParentId());
-                if (firstCategory != null){
+                firstCategory = categoryService.getCategoryByid(secondCategory.getParentId());
+                if (firstCategory != null) {
                     goodsInfo.put("firstCategory", firstCategory);
                 }
             }
