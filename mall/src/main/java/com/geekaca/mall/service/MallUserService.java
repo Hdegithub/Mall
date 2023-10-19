@@ -9,4 +9,6 @@ public interface MallUserService {
     String login(MallUserLoginParam userLoginParam);
 
     User getUserById(long uidLong);
+
+    boolean logout(long uidLong);
 }

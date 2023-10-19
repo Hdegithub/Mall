@@ -64,4 +64,27 @@ public class MallUserController {
         Result result = ResultGenerator.genSuccessResult(userInfo);
         return result;
     }
+
+    @PostMapping("/user/logout")
+    @ApiOperation(value = "登出接口", notes = "清除token")
+    public Result<String> logout(HttpServletRequest request) {
+        String token = request.getParameter("token");
+        if (token == null){
+            return ResultGenerator.genSuccessResult();
+        }
+        Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
+        Claim idClaim = stringClaimMap.get("id");
+        String uid = idClaim.asString();
+        long uidLong = Long.parseLong(uid);
+        boolean logoutResult = mallUserService.logout(uidLong);
+
+        log.info("logout api,loginMallUser={}", uidLong);
+
+        //登出成功
+        if (logoutResult) {
+            return ResultGenerator.genSuccessResult();
+        }
+        //登出失败
+        return ResultGenerator.genFailResult("logout error");
+    }
 }

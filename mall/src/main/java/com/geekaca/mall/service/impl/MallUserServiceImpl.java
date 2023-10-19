@@ -49,4 +49,14 @@ public class MallUserServiceImpl implements MallUserService {
         User userById = userMapper.findUserById(uidLong);
         return userById;
     }
+
+    @Override
+    public boolean logout(long uidLong) {
+        User userById = userMapper.findUserById(uidLong);
+        if (userById != null) {
+            return true;
+        }else{
+            throw new LoginNameExsistsException("用户登出异常");
+        }
+    }
 }

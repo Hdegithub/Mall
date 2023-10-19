@@ -36,5 +36,7 @@ public interface UserMapper {
     String findByNameAndPass(@Param("loginName") String loginName, @Param("password") String passwordMd5);
 
     User findUserById(@Param("userId")long uidLong);
+    //用户信息
     User userCheckLogin(@Param("loginName") String loginName, @Param("passwordMD5") String passwordMD5);
+
 }
