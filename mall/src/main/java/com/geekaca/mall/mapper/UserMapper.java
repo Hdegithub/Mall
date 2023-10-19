@@ -31,7 +31,10 @@ public interface UserMapper {
 
     //注册
     Integer insertUser(@Param("registerUser")MallUserRegisterParam mallUserRegisterParam);
-    List<MallUserRegisterParam> findUser(@Param("userName")String userName);
+    Integer findUser(@Param("userName")String userName);
     //登录
     String findByNameAndPass(@Param("loginName") String loginName, @Param("password") String passwordMd5);
+
+    User findUserById(@Param("userId")long uidLong);
+    User userCheckLogin(@Param("loginName") String loginName, @Param("passwordMD5") String passwordMD5);
 }

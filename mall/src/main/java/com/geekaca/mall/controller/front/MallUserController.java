@@ -1,20 +1,22 @@
 package com.geekaca.mall.controller.front;
 
 
+import com.auth0.jwt.interfaces.Claim;
 import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
+import com.geekaca.mall.domain.User;
 import com.geekaca.mall.service.MallUserService;
+import com.geekaca.mall.utils.JwtUtil;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -40,13 +42,26 @@ public class MallUserController {
 
     @PostMapping("/user/login")
     public Result login(@RequestBody @Valid MallUserLoginParam userLoginParam) {
-        //需要返回token
-        String loginResult = mallUserService.login(userLoginParam);
-        if (loginResult != null && !"".equals(loginResult.trim())) {
+        String loginResultToken = mallUserService.login(userLoginParam);
+        if (loginResultToken != null && !"".equals(loginResultToken.trim())) {
             Result result = ResultGenerator.genSuccessResult();
-            result.setData(loginResult);
+            result.setData(loginResultToken);
             return result;
         }
         return ResultGenerator.genFailResult("登陆失败");
+    }
+
+
+    @GetMapping("/user/info")
+    @ApiOperation(value = "获取用户信息", notes = "")
+    public Result getInfo(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
+        Claim idClaim = stringClaimMap.get("id");
+        String uid = idClaim.asString();
+        long uidLong = Long.parseLong(uid);
+        User userInfo = mallUserService.getUserById(uidLong);
+        Result result = ResultGenerator.genSuccessResult(userInfo);
+        return result;
     }
 }

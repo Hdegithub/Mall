@@ -113,7 +113,7 @@
     </insert>
     <select id="findUser" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        count(*)
         from tb_newbee_mall_user
         where  login_name = #{userName,jdbcType=BIGINT}
     </select>
@@ -122,5 +122,18 @@
         <include refid="Base_Column_List"/>
         from tb_newbee_mall_user
         where login_name = #{loginName} and password_md5 = #{password}
+    </select>
+    <select id="findUserById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where user_id = #{userId}
+    </select>
+    <select id="userCheckLogin" resultMap="BaseResultMap">
+        SELECT *
+        FROM tb_newbee_mall_user
+        where login_name = #{loginName}
+          and password_md5 = #{passwordMD5}
+          and locked_flag = 0
     </select>
 </mapper>

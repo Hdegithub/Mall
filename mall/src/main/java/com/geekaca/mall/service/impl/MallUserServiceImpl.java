@@ -2,9 +2,12 @@ package com.geekaca.mall.service.impl;
 
 import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
+import com.geekaca.mall.domain.AdminUser;
+import com.geekaca.mall.domain.User;
 import com.geekaca.mall.exceptions.LoginNameExsistsException;
 import com.geekaca.mall.mapper.UserMapper;
 import com.geekaca.mall.service.MallUserService;
+import com.geekaca.mall.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +21,8 @@ public class MallUserServiceImpl implements MallUserService {
     @Override
     public boolean register(MallUserRegisterParam mallUserRegisterParam) {
         //验证用户名是否已经被占用
-        List<MallUserRegisterParam> user = userMapper.findUser(mallUserRegisterParam.getLoginName());
-        if (user == null) {
+        Integer userCount = userMapper.findUser(mallUserRegisterParam.getLoginName());
+        if (userCount < 1) {
             Integer isRegisterOk = userMapper.insertUser(mallUserRegisterParam);
             return isRegisterOk == 1;
         }else{
@@ -31,7 +34,19 @@ public class MallUserServiceImpl implements MallUserService {
 
     @Override
     public String login(MallUserLoginParam userLoginParam) {
-        String longinUser = userMapper.findByNameAndPass(userLoginParam.getLoginName(), userLoginParam.getPasswordMd5());
-        return longinUser;
+        User user = userMapper.userCheckLogin(userLoginParam.getLoginName(), userLoginParam.getPasswordMd5());
+        if (user == null){
+            //登陆失败
+            return null;
+        }
+        //生成token
+        String token = JwtUtil.createToken(user.getUserId().toString(), user.getLoginName());
+        return token;
+    }
+
+    @Override
+    public User getUserById(long uidLong) {
+        User userById = userMapper.findUserById(uidLong);
+        return userById;
     }
 }
