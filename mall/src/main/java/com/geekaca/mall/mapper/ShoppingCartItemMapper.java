@@ -1,5 +1,6 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
 import com.geekaca.mall.domain.ShoppingCartItem;
 import com.geekaca.mall.utils.PageQueryUtil;
@@ -35,4 +36,5 @@ public interface ShoppingCartItemMapper {
 
 
     List<ShoppingCartItemVO> selectByUserId(@Param("userId") Long userId, @Param("number") int number);
+
 }

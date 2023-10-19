@@ -101,6 +101,7 @@
                 <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.geekaca.mall.domain.ShoppingCartItem">
         update tb_newbee_mall_shopping_cart_item
         <set>

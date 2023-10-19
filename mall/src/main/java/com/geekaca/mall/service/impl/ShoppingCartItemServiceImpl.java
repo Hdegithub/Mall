@@ -1,8 +1,12 @@
 package com.geekaca.mall.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.common.Constants;
+import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
+import com.geekaca.mall.domain.GoodsInfo;
+import com.geekaca.mall.domain.ShoppingCartItem;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
 import com.geekaca.mall.mapper.ShoppingCartItemMapper;
 import com.geekaca.mall.service.ShoppingCartItemService;
@@ -31,7 +35,18 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 
     @Override
     public String saveMallCartItem(SaveCartItemParam saveCartItemParam, long userId) {
-        return null;
+        GoodsInfo goodsInfo = goodsInfoMapper.selectByPrimaryKey(saveCartItemParam.getGoodsId());
+        //商品不存在
+        if (goodsInfo == null) {
+            return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
+        }
+        ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+        BeanUtil.copyProperties(saveCartItemParam, shoppingCartItem);
+        shoppingCartItem.setUserId(userId);
+        if (cartItemMapper.insertSelective(shoppingCartItem) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        return ServiceResultEnum.DB_ERROR.getResult();
     }
 
     @Override
