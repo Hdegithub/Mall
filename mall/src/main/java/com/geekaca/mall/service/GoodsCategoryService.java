@@ -2,6 +2,7 @@ package com.geekaca.mall.service;
 
 import com.geekaca.mall.controller.admin.param.CategoryParam;
 import com.geekaca.mall.controller.vo.MallIndexCategoryVO;
+import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
 
@@ -36,4 +37,6 @@ public interface GoodsCategoryService {
     List<MallIndexCategoryVO> getCategoriesForIndex();
 
     PageResult getCategoryPage(PageQueryUtil pageQueryUtil);
+
+    GoodsCategory getCategoryById(Long cateId);
 }

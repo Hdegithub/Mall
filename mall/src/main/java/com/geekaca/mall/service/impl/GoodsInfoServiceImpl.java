@@ -53,6 +53,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
 
     @Override
     public Boolean updateGoods(GoodsUpdateParam goodsUpdateParam) {
+        //GoodsUpdateParam转换 为   GoodsInfo 属性值和数据库对应
         GoodsInfo goodsInfo = new GoodsInfo();
         goodsInfo.setGoodsId(goodsUpdateParam.getGoodsId());
         goodsInfo.setGoodsCategoryId(goodsUpdateParam.getGoodsCategoryId());

@@ -142,4 +142,10 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         PageResult pageResult = new PageResult(categoryList, totalCategoryCounts, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
         return pageResult;
     }
+
+    @Override
+    public GoodsCategory getCategoryById(Long cateId) {
+        GoodsCategory goodsCategory = categoryMapper.selectByPrimaryKey(cateId);
+        return goodsCategory;
+    }
 }

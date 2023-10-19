@@ -10,6 +10,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 数据载体
+ * 作用： 接收 用户从前端传递的值
+ */
 @Data
 public class GoodsUpdateParam {
 
