@@ -27,7 +27,11 @@ public class CarouselServiceImpl implements CarouselService {
 
     @Override
     public int saveCarousel(CarouselParam carouselParam) {
-        return carouselMapper.insertByParam(carouselParam);
+        Carousel carousel = new Carousel();
+        carousel.setCarouselUrl(carouselParam.getCarouselUrl());
+        carousel.setRedirectUrl(carouselParam.getRedirectUrl());
+        carousel.setCarouselRank(carouselParam.getCarouselRank());
+        return carouselMapper.insertByParam(carousel);
     }
 
     @Override

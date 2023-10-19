@@ -35,7 +35,7 @@ public interface CarouselMapper {
 
     int findCarouselCount();
 
-    int insertByParam(CarouselParam carouselParam);
+    int insertByParam(Carousel carousel);
 
     int deleteByCarouselIds(@Param("ids") Long[] ids);
 }
