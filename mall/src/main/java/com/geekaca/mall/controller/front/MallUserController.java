@@ -40,6 +40,7 @@ public class MallUserController {
 
     @PostMapping("/user/login")
     public Result login(@RequestBody @Valid MallUserLoginParam userLoginParam) {
+        //需要返回token
         String loginResult = mallUserService.login(userLoginParam);
         if (loginResult != null && !"".equals(loginResult.trim())) {
             Result result = ResultGenerator.genSuccessResult();

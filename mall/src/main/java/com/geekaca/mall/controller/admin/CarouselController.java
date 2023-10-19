@@ -30,10 +30,10 @@ public class CarouselController {
     @RequestMapping(value = "/carousels", method = RequestMethod.GET)
     public Result list(@RequestParam(required = false) @ApiParam(value = "页码") Integer pageNumber,
                        @RequestParam(required = false) @ApiParam(value = "每页条数") Integer pageSize) {
-        if (pageNumber == null){
+        if (pageNumber == null) {
             pageNumber = 1;
         }
-        if (pageSize == null){
+        if (pageSize == null) {
             pageSize = 20;
         }
         PageResult pageResult = carouselService.findCarousels(pageNumber, pageSize);
@@ -51,7 +51,7 @@ public class CarouselController {
     @ApiOperation(value = "新增轮播图", notes = "新增轮播图")
     @RequestMapping(value = "/carousels", method = RequestMethod.POST)
     public Result save(@RequestBody @Valid CarouselParam carouselParam) {
-        int isOk =carouselService.saveCarousel(carouselParam);
+        int isOk = carouselService.saveCarousel(carouselParam);
         if (isOk != 0) {
             return ResultGenerator.genSuccessResult();
         } else {

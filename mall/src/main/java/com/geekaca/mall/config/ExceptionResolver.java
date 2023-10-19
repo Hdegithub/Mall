@@ -1,5 +1,6 @@
 package com.geekaca.mall.config;
 
+import com.geekaca.mall.exceptions.LoginNameExsistsException;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +26,11 @@ public class ExceptionResolver {
         //接口返回一个失败的结果     后面： 获取 违反了domain类声明的哪个规则
         return ResultGenerator.genFailResult("参数异常" + e.getBindingResult().getFieldError().getDefaultMessage());
         //getDefaultMessage()会返回message信息
+    }
+
+    @ExceptionHandler(value = LoginNameExsistsException.class)
+    public Result businessExceptionHandler(LoginNameExsistsException be){
+        log.error(" 注册异常 ", be);
+        return ResultGenerator.genErrorResult(500, be.getMessage());
     }
 }

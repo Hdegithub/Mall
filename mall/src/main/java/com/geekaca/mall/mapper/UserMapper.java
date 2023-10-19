@@ -3,6 +3,7 @@ package com.geekaca.mall.mapper;
 import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.domain.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 * @createDate 2023-10-18 15:26:12
 * @Entity com.geekaca.mall.domain.User
 */
+@Mapper
 public interface UserMapper {
 
     int deleteByPrimaryKey(Long id);
