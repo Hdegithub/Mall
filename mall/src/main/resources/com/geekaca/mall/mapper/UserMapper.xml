@@ -117,4 +117,10 @@
         from tb_newbee_mall_user
         where  login_name = #{userName,jdbcType=BIGINT}
     </select>
+    <select id="findByNameAndPass" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where login_name = #{loginName} and password_md5 = #{password}
+    </select>
 </mapper>

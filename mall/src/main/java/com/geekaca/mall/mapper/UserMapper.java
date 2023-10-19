@@ -1,5 +1,6 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.domain.User;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +30,6 @@ public interface UserMapper {
     //注册
     Integer insertUser(@Param("registerUser")MallUserRegisterParam mallUserRegisterParam);
     List<MallUserRegisterParam> findUser(@Param("userName")String userName);
+    //登录
+    String findByNameAndPass(@Param("loginName") String loginName, @Param("password") String passwordMd5);
 }

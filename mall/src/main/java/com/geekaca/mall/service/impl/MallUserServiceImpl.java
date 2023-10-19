@@ -1,5 +1,6 @@
 package com.geekaca.mall.service.impl;
 
+import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.mapper.UserMapper;
 import com.geekaca.mall.service.MallUserService;
@@ -21,5 +22,11 @@ public class MallUserServiceImpl implements MallUserService {
             return isRegisterOk == 1;
         }
         return false;
+    }
+
+    @Override
+    public String login(MallUserLoginParam userLoginParam) {
+        String longinUser = userMapper.findByNameAndPass(userLoginParam.getLoginName(), userLoginParam.getPasswordMd5());
+        return longinUser;
     }
 }

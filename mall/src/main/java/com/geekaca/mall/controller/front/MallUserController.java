@@ -1,6 +1,7 @@
 package com.geekaca.mall.controller.front;
 
 
+import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
 import com.geekaca.mall.service.MallUserService;
 import com.geekaca.mall.utils.Result;
@@ -35,5 +36,16 @@ public class MallUserController {
         }
         //注册失败
         return ResultGenerator.genFailResult("注册失败");
+    }
+
+    @PostMapping("/user/login")
+    public Result login(@RequestBody @Valid MallUserLoginParam userLoginParam) {
+        String loginResult = mallUserService.login(userLoginParam);
+        if (loginResult != null && !"".equals(loginResult.trim())) {
+            Result result = ResultGenerator.genSuccessResult();
+            result.setData(loginResult);
+            return result;
+        }
+        return ResultGenerator.genFailResult("登陆失败");
     }
 }
