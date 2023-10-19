@@ -2,12 +2,12 @@ package com.geekaca.mall.service.impl;
 
 import com.geekaca.mall.controller.front.param.MallUserLoginParam;
 import com.geekaca.mall.controller.front.param.MallUserRegisterParam;
-import com.geekaca.mall.domain.AdminUser;
 import com.geekaca.mall.domain.User;
 import com.geekaca.mall.exceptions.LoginNameExsistsException;
 import com.geekaca.mall.mapper.UserMapper;
 import com.geekaca.mall.service.MallUserService;
 import com.geekaca.mall.utils.JwtUtil;
+import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,8 +55,15 @@ public class MallUserServiceImpl implements MallUserService {
         User userById = userMapper.findUserById(uidLong);
         if (userById != null) {
             return true;
-        }else{
+        } else {
             throw new LoginNameExsistsException("用户登出异常");
         }
+    }
+
+    public PageResult findUsers(Integer pageNo, Integer pageSize) {
+        List<User> userlList = userMapper.findUserList((pageNo - 1) * pageSize, pageSize);
+        int userCount = userMapper.findUserCount();
+        PageResult pageResult = new PageResult(userlList, userCount, pageSize, pageNo);
+        return pageResult;
     }
 }

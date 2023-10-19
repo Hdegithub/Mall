@@ -39,4 +39,7 @@ public interface UserMapper {
     //用户信息
     User userCheckLogin(@Param("loginName") String loginName, @Param("passwordMD5") String passwordMD5);
 
+    List<User> findUserList(@Param("limit") Integer limit, @Param("pageSize") Integer pageSize);
+
+    int findUserCount();
 }
