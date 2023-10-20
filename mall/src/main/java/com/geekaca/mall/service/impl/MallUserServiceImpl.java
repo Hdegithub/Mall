@@ -23,7 +23,7 @@ public class MallUserServiceImpl implements MallUserService {
     public boolean register(MallUserRegisterParam mallUserRegisterParam) {
         //验证用户名是否已经被占用
         Integer userCount = userMapper.findUser(mallUserRegisterParam.getLoginName());
-        if (userCount < 1) {
+        if (userCount == null) {
             Integer isRegisterOk = userMapper.insertUser(mallUserRegisterParam);
             return isRegisterOk == 1;
         } else {
