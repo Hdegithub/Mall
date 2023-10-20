@@ -60,6 +60,13 @@
         from tb_newbee_mall_index_config
         where config_id = #{configId,jdbcType=BIGINT}
     </delete>
+    <update id="deleteByIds">
+        update tb_newbee_mall_index_config
+        set is_deleted=1,update_time=now() where is_deleted=0 and config_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
     <insert id="insert" keyColumn="config_id" keyProperty="configId" parameterType="com.geekaca.mall.domain.IndexConfig"
             useGeneratedKeys="true">
         insert into tb_newbee_mall_index_config

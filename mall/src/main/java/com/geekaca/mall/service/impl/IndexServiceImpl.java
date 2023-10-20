@@ -55,4 +55,12 @@ public class IndexServiceImpl implements IndexService {
         }
         return false;
     }
+
+    @Override
+    public Boolean deleteIndex(Long[] ids) {
+        if (ids.length < 1) {
+            return false;
+        }
+        return indexConfigMapper.deleteByIds(ids) > 0;
+    }
 }

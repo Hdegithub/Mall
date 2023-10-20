@@ -2,6 +2,7 @@ package com.geekaca.mall.controller.admin;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
 import com.geekaca.mall.domain.IndexConfig;
 import com.geekaca.mall.service.IndexService;
@@ -55,6 +56,22 @@ public class AdminIndexConfigController {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("添加失败");
+        }
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping(value = "/indexConfigsDel", method = RequestMethod.DELETE)
+    @ApiOperation(value = "批量删除首页配置项信息", notes = "批量删除首页配置项信息")
+    public Result delete(@RequestBody BatchIdParam batchIdParam) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        if (indexService.deleteIndex(batchIdParam.getIds())) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("删除失败");
         }
     }
 }

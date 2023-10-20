@@ -19,4 +19,6 @@ public interface IndexService {
     PageResult getConfigsPage(PageQueryUtil pageUtil);
 
     Boolean saveIndexConfig(IndexConfig indexConfig);
+
+    Boolean deleteIndex(Long[] ids);
 }

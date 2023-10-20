@@ -18,6 +18,8 @@ public interface IndexConfigMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    int deleteByIds(Long[] ids);
+
     int insert(IndexConfig record);
 
     int insertSelective(IndexConfig record);
