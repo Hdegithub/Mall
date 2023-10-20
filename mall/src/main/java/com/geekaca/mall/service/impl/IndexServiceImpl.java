@@ -1,7 +1,9 @@
 package com.geekaca.mall.service.impl;
 
+import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
 import com.geekaca.mall.controller.vo.CarouselVO;
 import com.geekaca.mall.controller.vo.HotGoodsesVO;
+import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.domain.IndexConfig;
 import com.geekaca.mall.mapper.CarouselMapper;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
@@ -39,5 +41,18 @@ public class IndexServiceImpl implements IndexService {
         int indexConfigsCount = indexConfigMapper.getIndexConfigsCount(pageUtil);
         PageResult pageResult = new PageResult(configList, indexConfigsCount, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
+    }
+
+    @Override
+    public Boolean saveIndexConfig(IndexConfig indexConfig) {
+        indexConfig.setConfigName(indexConfig.getConfigName());
+        indexConfig.setRedirectUrl(indexConfig.getRedirectUrl());
+        indexConfig.setConfigRank(indexConfig.getConfigRank());
+        indexConfig.setConfigType(indexConfig.getConfigType());
+        int insert = indexConfigMapper.insertSelective(indexConfig);
+        if (insert > 0) {
+            return true;
+        }
+        return false;
     }
 }

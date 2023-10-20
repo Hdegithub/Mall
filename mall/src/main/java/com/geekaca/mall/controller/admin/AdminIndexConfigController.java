@@ -1,11 +1,11 @@
 package com.geekaca.mall.controller.admin;
 
-import com.geekaca.mall.common.IndexConfigTypeEnum;
-import com.geekaca.mall.config.annotation.TokenToAdminUser;
-import com.geekaca.mall.domain.UserToken;
+
+import cn.hutool.core.bean.BeanUtil;
+import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
+import com.geekaca.mall.domain.IndexConfig;
 import com.geekaca.mall.service.IndexService;
 import com.geekaca.mall.utils.PageQueryUtil;
-import com.geekaca.mall.utils.PageResult;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import io.swagger.annotations.Api;
@@ -13,12 +13,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.validation.Valid;
 import java.util.Map;
 
 @Slf4j
@@ -43,5 +40,21 @@ public class AdminIndexConfigController {
         params.put("configType", configType);
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(indexService.getConfigsPage(pageUtil));
+    }
+
+    /**
+     * 添加
+     */
+    @RequestMapping(value = "/indexConfigs", method = RequestMethod.POST)
+    @ApiOperation(value = "新增首页配置项", notes = "新增首页配置项")
+    public Result save(@RequestBody @Valid IndexConfigAddParam indexConfigAddParam) {
+        IndexConfig indexConfig = new IndexConfig();
+        BeanUtil.copyProperties(indexConfigAddParam, indexConfig);
+        Boolean saveIndexConfig = indexService.saveIndexConfig(indexConfig);
+        if (saveIndexConfig == true) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("添加失败");
+        }
     }
 }
