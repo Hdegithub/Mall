@@ -1,6 +1,9 @@
 package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.UserAddress;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author magol
@@ -8,6 +11,7 @@ import com.geekaca.mall.domain.UserAddress;
 * @createDate 2023-10-18 15:26:12
 * @Entity com.geekaca.mall.domain.UserAddress
 */
+@Mapper
 public interface UserAddressMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -22,4 +26,6 @@ public interface UserAddressMapper {
 
     int updateByPrimaryKey(UserAddress record);
 
+    //获取地址列表
+    List<UserAddress> findAddressList(Long userId);
 }

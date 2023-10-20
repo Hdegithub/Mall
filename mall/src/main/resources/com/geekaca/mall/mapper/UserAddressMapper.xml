@@ -33,6 +33,7 @@
         where  address_id = #{addressId,jdbcType=BIGINT} 
     </select>
 
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_user_address
         where  address_id = #{addressId,jdbcType=BIGINT} 
@@ -136,4 +137,13 @@
             update_time =  #{updateTime,jdbcType=TIMESTAMP}
         where   address_id = #{addressId,jdbcType=BIGINT} 
     </update>
+
+    <select id="findAddressList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_address
+        where user_id = #{userId} and is_deleted = 0
+        order by address_id desc
+        limit 10
+    </select>
 </mapper>
