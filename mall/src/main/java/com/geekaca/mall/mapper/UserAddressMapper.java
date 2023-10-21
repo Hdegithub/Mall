@@ -2,6 +2,7 @@ package com.geekaca.mall.mapper;
 
 import com.geekaca.mall.domain.UserAddress;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,5 +28,8 @@ public interface UserAddressMapper {
     int updateByPrimaryKey(UserAddress record);
 
     //获取地址列表
-    List<UserAddress> findAddressList(Long userId);
+    List<UserAddress> findAddressList(@Param("userId")Long userId);
+
+    UserAddress searchAddressById(@Param("userId")Long userId);
+    UserAddress getMyDefaultAddress(@Param("userId")Long userId);
 }

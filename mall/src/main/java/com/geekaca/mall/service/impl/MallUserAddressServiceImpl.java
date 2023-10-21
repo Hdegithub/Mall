@@ -23,4 +23,16 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
         BeanUtil.copyProperties(userAddress,mallUserAddressVO);
         return mallUserAddressVO;
     }
+
+    @Override
+    public UserAddress getUserAddressById(Long addressId) {
+        UserAddress addressList = userAddressMapper.searchAddressById(addressId);
+        return addressList;
+    }
+
+    @Override
+    public UserAddress getMyDefaultAddressByUserId(long userId) {
+        UserAddress myDefaultAddress = userAddressMapper.getMyDefaultAddress(userId);
+        return myDefaultAddress;
+    }
 }

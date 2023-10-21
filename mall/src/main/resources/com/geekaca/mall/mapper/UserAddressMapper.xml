@@ -146,4 +146,19 @@
         order by address_id desc
         limit 10
     </select>
+    <select id="searchAddressById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_address
+        where user_id = #{userId} and is_deleted = 0
+    </select>
+    <select id="getMyDefaultAddress" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_address
+        where user_id = #{userId}
+          and default_flag =1
+          and is_deleted = 0
+          limit 1
+    </select>
 </mapper>
