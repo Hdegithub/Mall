@@ -11,4 +11,12 @@ public interface MallUserAddressService {
 
     UserAddress getUserAddressById(Long addressId);
     UserAddress getMyDefaultAddressByUserId(long userId);
+
+    Boolean saveUserAddress(UserAddress userAddress);
+
+    UserAddress getMallUserAddressById(Long addressId);
+
+    Boolean updateMallUserAddress(UserAddress userAddress);
+
+    Boolean deleteById(Long addressId);
 }
