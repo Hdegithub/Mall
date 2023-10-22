@@ -1,6 +1,9 @@
 package com.geekaca.mall.service.impl;
 
+import com.geekaca.mall.common.NewBeeMallException;
+import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
+import com.geekaca.mall.controller.admin.param.IndexConfigEditParam;
 import com.geekaca.mall.controller.vo.CarouselVO;
 import com.geekaca.mall.controller.vo.HotGoodsesVO;
 import com.geekaca.mall.domain.GoodsCategory;
@@ -62,5 +65,31 @@ public class IndexServiceImpl implements IndexService {
             return false;
         }
         return indexConfigMapper.deleteByIds(ids) > 0;
+    }
+
+    @Override
+    public IndexConfig getIndexConfigById(Long id) {
+        IndexConfig config = indexConfigMapper.selectByPrimaryKey(id);
+        if (config == null) {
+            NewBeeMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
+        }
+        return config;
+    }
+
+    @Override
+    public Boolean updateIndexConfig(IndexConfigEditParam indexConfigEditParam) {
+        IndexConfig indexConfig = new IndexConfig();
+        indexConfig.setGoodsId(indexConfigEditParam.getGoodsId());
+        indexConfig.setConfigId(indexConfigEditParam.getConfigId());
+        indexConfig.setConfigType(indexConfigEditParam.getConfigType());
+        indexConfig.setConfigName(indexConfigEditParam.getConfigName());
+        indexConfig.setRedirectUrl(indexConfigEditParam.getRedirectUrl());
+        indexConfig.setConfigRank(indexConfigEditParam.getConfigRank());
+        int update = indexConfigMapper.updateByPrimaryKeySelective(indexConfig);
+        if (update > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

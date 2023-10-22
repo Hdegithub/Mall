@@ -4,6 +4,7 @@ package com.geekaca.mall.controller.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
+import com.geekaca.mall.controller.admin.param.IndexConfigEditParam;
 import com.geekaca.mall.domain.IndexConfig;
 import com.geekaca.mall.service.IndexService;
 import com.geekaca.mall.utils.PageQueryUtil;
@@ -15,6 +16,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -72,6 +74,33 @@ public class AdminIndexConfigController {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");
+        }
+    }
+
+    /**
+     * 详情
+     */
+    @RequestMapping(value = "/indexConfigs/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "获取单条首页配置项信息", notes = "根据id查询")
+    public Result info(@PathVariable("id") Long id) {
+        IndexConfig config = indexService.getIndexConfigById(id);
+        if (config == null) {
+            return ResultGenerator.genFailResult("未查询到数据");
+        }
+        return ResultGenerator.genSuccessResult(config);
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/indexConfigs", method = RequestMethod.PUT)
+    @ApiOperation(value = "修改首页配置项", notes = "修改首页配置项")
+    public Result update(@RequestBody @Valid IndexConfigEditParam indexConfigEditParam) {
+        Boolean updateIndex = indexService.updateIndexConfig(indexConfigEditParam);
+        if (updateIndex == true) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("修改失败");
         }
     }
 }

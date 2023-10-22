@@ -1,6 +1,7 @@
 package com.geekaca.mall.service;
 
 import com.geekaca.mall.controller.admin.param.IndexConfigAddParam;
+import com.geekaca.mall.controller.admin.param.IndexConfigEditParam;
 import com.geekaca.mall.controller.vo.CarouselVO;
 import com.geekaca.mall.controller.vo.HotGoodsesVO;
 import com.geekaca.mall.domain.IndexConfig;
@@ -21,4 +22,8 @@ public interface IndexService {
     Boolean saveIndexConfig(IndexConfig indexConfig);
 
     Boolean deleteIndex(Long[] ids);
+
+    IndexConfig getIndexConfigById(Long id);
+
+    Boolean updateIndexConfig(IndexConfigEditParam indexConfigEditParam);
 }
