@@ -1,11 +1,11 @@
 package com.geekaca.mall.controller.front;
 
-import cn.hutool.json.JSONUtil;
 import com.auth0.jwt.interfaces.Claim;
 import com.geekaca.mall.common.Constants;
 import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
+import com.geekaca.mall.controller.front.param.UpdateCartItemParam;
 import com.geekaca.mall.service.ShoppingCartItemService;
 import com.geekaca.mall.utils.*;
 import io.swagger.annotations.ApiOperation;
@@ -75,8 +75,8 @@ public class MallCartController {
         Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
         Claim idClaim = stringClaimMap.get("id");
         String uid = idClaim.asString();
-        long UserId = Long.parseLong(uid);
-        String saveResult = cartItemService.saveMallCartItem(saveCartItemParam, UserId);
+        long userId = Long.parseLong(uid);
+        String saveResult = cartItemService.saveMallCartItem(saveCartItemParam, userId);
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
             return ResultGenerator.genSuccessResult();
@@ -84,6 +84,26 @@ public class MallCartController {
         //添加失败
         return ResultGenerator.genFailResult(saveResult);
     }
+
+    @PutMapping("/shop-cart")
+    @ApiOperation(value = "修改购物项数据", notes = "传参为购物项id、数量")
+    public Result updateNewBeeMallShoppingCartItem(@RequestBody UpdateCartItemParam updateCartItemParam,
+                                                   HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
+        Claim idClaim = stringClaimMap.get("id");
+        String uid = idClaim.asString();
+        long userId = Long.parseLong(uid);
+        String updateResult = cartItemService.updateMallCartItem(updateCartItemParam, userId);
+        //修改成功
+        if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        //修改失败
+        return ResultGenerator.genFailResult(updateResult);
+    }
+
+
 
     @DeleteMapping("/shop-cart/{cartItemId}")
     public Result delete(@PathVariable("cartItemId") Long cartItemId) {

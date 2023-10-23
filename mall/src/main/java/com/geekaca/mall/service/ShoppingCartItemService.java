@@ -2,6 +2,7 @@ package com.geekaca.mall.service;
 
 import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
+import com.geekaca.mall.controller.front.param.UpdateCartItemParam;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
 
@@ -24,7 +25,7 @@ public interface ShoppingCartItemService {
      * @param userId
      * @return
      */
-    String saveMallCartItem(SaveCartItemParam saveCartItemParam, long userId);
+    String saveMallCartItem(SaveCartItemParam saveCartItemParam, Long userId);
 
     /**
      * 获取我的购物车中的列表数据
@@ -35,4 +36,11 @@ public interface ShoppingCartItemService {
     List<ShoppingCartItemVO> getMyShoppingCartItems(Long mallUserId);
 
 
+    /**
+     * 修改购物车中的属性
+     * @param updateCartItemParam
+     * @param userId
+     * @return
+     */
+    String updateMallCartItem(UpdateCartItemParam updateCartItemParam, Long userId);
 }
