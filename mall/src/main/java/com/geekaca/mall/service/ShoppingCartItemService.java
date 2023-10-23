@@ -43,4 +43,13 @@ public interface ShoppingCartItemService {
      * @return
      */
     String updateMallCartItem(UpdateCartItemParam updateCartItemParam, Long userId);
+
+    /**
+     * 删除购物车中的商品
+     *
+     * @param cartItemId
+     * @param userId
+     * @return
+     */
+    Boolean deleteById(Long cartItemId, Long userId);
 }

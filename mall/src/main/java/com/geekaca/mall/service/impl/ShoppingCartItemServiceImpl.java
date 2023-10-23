@@ -85,6 +85,19 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
         return ServiceResultEnum.DB_ERROR.getResult();
     }
 
+    @Override
+    public Boolean deleteById(Long cartItemId, Long userId) {
+        ShoppingCartItem shoppingCartItem = cartItemMapper.selectByPrimaryKey(cartItemId);
+        if (shoppingCartItem == null) {
+            return false;
+        }
+        //userId不同不能删除
+        if (!userId.equals(shoppingCartItem.getUserId())) {
+            return false;
+        }
+        return cartItemMapper.deleteByPrimaryKey(cartItemId) > 0;
+    }
+
 }
 
 

@@ -6,6 +6,7 @@ import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
 import com.geekaca.mall.controller.front.param.UpdateCartItemParam;
+import com.geekaca.mall.domain.ShoppingCartItem;
 import com.geekaca.mall.service.ShoppingCartItemService;
 import com.geekaca.mall.utils.*;
 import io.swagger.annotations.ApiOperation;
@@ -106,9 +107,25 @@ public class MallCartController {
 
 
     @DeleteMapping("/shop-cart/{cartItemId}")
-    public Result delete(@PathVariable("cartItemId") Long cartItemId) {
+    @ApiOperation(value = "删除购物项", notes = "传参为购物项id")
+    public Result delete(@PathVariable("cartItemId") Long cartItemId,
+                         HttpServletRequest request) {
         System.out.println("cartItemId:" + cartItemId);
         System.out.println(Constants.FILE_UPLOAD_DIC);
-        return ResultGenerator.genSuccessResult();
+        String token = request.getHeader("token");
+        Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
+        Claim idClaim = stringClaimMap.get("id");
+        String uid = idClaim.asString();
+        long userId = Long.parseLong(uid);
+        cartItemService.getMyShoppingCartItems(cartItemId);
+        Boolean deleteResult = cartItemService.deleteById(cartItemId,userId);
+        //删除成功
+        if (deleteResult) {
+            return ResultGenerator.genSuccessResult();
+        }
+        //删除失败
+        return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
     }
+
+
 }
