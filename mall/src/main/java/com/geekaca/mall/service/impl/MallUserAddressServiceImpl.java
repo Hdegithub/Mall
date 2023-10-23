@@ -9,7 +9,6 @@ import com.geekaca.mall.service.MallUserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +19,7 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
     @Override
     public List<MallUserAddressVO> getAddresses(long userId) {
         List<UserAddress> userAddress = userAddressMapper.findAddressList(userId);
-        List<MallUserAddressVO> mallUserAddressVO = new ArrayList<>();
-        BeanUtil.copyProperties(userAddress,mallUserAddressVO);
+        List<MallUserAddressVO> mallUserAddressVO = BeanUtil.copyToList(userAddress,MallUserAddressVO.class );
         return mallUserAddressVO;
     }
 

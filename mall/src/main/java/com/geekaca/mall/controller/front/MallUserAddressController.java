@@ -38,6 +38,7 @@ public class MallUserAddressController {
         long UserId = Long.parseLong(uid);
         return ResultGenerator.genSuccessResult(mallUserAddressService.getAddresses(UserId));
     }
+
     @GetMapping("/address/{addressId}")
     @ApiOperation(value = "获取收货地址详情", notes = "传参为地址id")
     public Result<MallUserAddressVO> getMallUserAddress(@PathVariable("addressId") Long addressId,

@@ -1,7 +1,9 @@
 package com.geekaca.mall.controller.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+@Data
 public class MallUserAddressVO {
     @ApiModelProperty("地址id")
     private Long addressId;
@@ -29,4 +31,7 @@ public class MallUserAddressVO {
 
     @ApiModelProperty("详细地址")
     private String detailAddress;
+
+    public MallUserAddressVO() {
+    }
 }
