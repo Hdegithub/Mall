@@ -44,4 +44,6 @@ public interface UserMapper {
     int findUserCount();
 
     int updateById(@Param("user")User updateUser, @Param("uid")long uidLong);
+
+    int lockUserBatch(@Param("ids") Long[] ids, @Param("lockStatus") int lockStatus);
 }

@@ -17,4 +17,6 @@ public interface MallUserService {
     PageResult findUsers(Integer pageNo, Integer pageSize);
 
     boolean updateUserInfo(MallUserUpdateParam mallUserUpdateParam, long uidLong);
+
+    Boolean lockUsers(Long[] ids, int lockStatus);
 }

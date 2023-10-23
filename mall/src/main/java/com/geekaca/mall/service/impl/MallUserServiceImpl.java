@@ -84,4 +84,9 @@ public class MallUserServiceImpl implements MallUserService {
         }
 
     }
+
+    @Override
+    public Boolean lockUsers(Long[] ids, int lockStatus) {
+        return userMapper.lockUserBatch(ids,lockStatus)==ids.length;
+    }
 }

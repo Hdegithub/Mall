@@ -1,6 +1,7 @@
 package com.geekaca.mall.controller.admin;
 
 
+import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.service.MallUserService;
 import com.geekaca.mall.utils.PageResult;
 import com.geekaca.mall.utils.Result;
@@ -9,10 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -43,5 +41,23 @@ public class UserController {
         return result;
 
 
+    }
+    /**
+     * 状态
+     */
+    @RequestMapping(value = "/users/{lockStatus}", method = RequestMethod.PUT)
+    @ApiOperation(value = "修改用户状态", notes = "批量修改，用户禁用与解除禁用(0-未锁定 1-已锁定)")
+    public Result lockUser(@RequestBody BatchIdParam batchIdParam, @PathVariable int lockStatus) {
+        if (batchIdParam==null||batchIdParam.getIds().length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        if (lockStatus != 0 && lockStatus != 1) {
+            return ResultGenerator.genFailResult("操作非法！");
+        }
+        if (userService.lockUsers(batchIdParam.getIds(), lockStatus)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("禁用失败");
+        }
     }
 }

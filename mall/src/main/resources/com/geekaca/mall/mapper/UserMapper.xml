@@ -40,6 +40,7 @@
             count(*)
         FROM
             mall_db_v2.tb_newbee_mall_user
+        where is_deleted = 0
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -156,5 +157,12 @@
             password_md5 =  #{user.passwordMd5},
             introduce_sign =  #{user.introduceSign}
         where user_id = #{uid}
+    </update>
+    <update id="lockUserBatch">
+        update mall_db_v2.tb_newbee_mall_user
+        set locked_flag=#{lockStatus} where user_id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
 </mapper>
