@@ -1,6 +1,7 @@
 
 package com.geekaca.mall.common;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +13,8 @@ public class Constants {
      */
 
 //    public  static String FILE_UPLOAD_DIC = "C:\\Users\\86139\\Desktop\\Tool\\MallImages\\goods-img\\";//上传文件的默认url前缀，根据部署设置自行修改
-    public final static String FILE_UPLOAD_DIC = "D:\\vue.img\\goods-img\\";//上传文件的默认url前缀，根据部署设置自行修改
+
+    public  static String FILE_UPLOAD_DIC ;//上传文件的默认url前缀，根据部署设置自行修改
 
     public final static int INDEX_CAROUSEL_NUMBER = 5;//首页轮播图数量(可根据自身需求修改)
 
@@ -41,9 +43,10 @@ public class Constants {
     // 未登录编码 ，前端收到返回代码419 就知道了，是未登录，会把用户踢到登陆页面
     public static final int NO_LOGIN = 419;
 
-//    @Value("C:\\Users\\86139\\Desktop\\Tool\\MallImages\\goods-img")
-//    public void setFileUploadDic(String fileUploadDic){
-//        FILE_UPLOAD_DIC = fileUploadDic;
-//    }
+    //静态static变量的注入
+    @Value("${upload.path}")
+    public void setFileUploadDic(String fileUploadDic){
+        FILE_UPLOAD_DIC = fileUploadDic;
+    }
 
 }

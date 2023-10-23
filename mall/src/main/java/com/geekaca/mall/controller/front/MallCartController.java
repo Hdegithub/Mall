@@ -84,4 +84,11 @@ public class MallCartController {
         //添加失败
         return ResultGenerator.genFailResult(saveResult);
     }
+
+    @DeleteMapping("/shop-cart/{cartItemId}")
+    public Result delete(@PathVariable("cartItemId") Long cartItemId) {
+        System.out.println("cartItemId:" + cartItemId);
+        System.out.println(Constants.FILE_UPLOAD_DIC);
+        return ResultGenerator.genSuccessResult();
+    }
 }
