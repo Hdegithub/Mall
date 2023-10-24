@@ -7,11 +7,12 @@ import com.geekaca.mall.domain.User;
 import com.geekaca.mall.exceptions.LoginNameExsistsException;
 import com.geekaca.mall.mapper.UserMapper;
 import com.geekaca.mall.service.MallUserService;
+import com.geekaca.mall.utils.JedisPoolUtil;
 import com.geekaca.mall.utils.JwtUtil;
 import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import redis.clients.jedis.Jedis;
 import java.util.List;
 
 @Service
@@ -42,6 +43,10 @@ public class MallUserServiceImpl implements MallUserService {
         }
         //生成token
         String token = JwtUtil.createToken(user.getUserId().toString(), user.getLoginName());
+        //token储存进redis
+        try (Jedis jedis = JedisPoolUtil.getJedis();) {
+            jedis.set("uid:admin:" + user.getUserId(), token);
+        }
         return token;
     }
 
