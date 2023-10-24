@@ -1,6 +1,7 @@
 package com.geekaca.mall.controller.admin;
 
 import com.geekaca.mall.controller.vo.OrderDetailVO;
+import com.geekaca.mall.service.ItemService;
 import com.geekaca.mall.service.OrderService;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.Result;
@@ -23,6 +24,8 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ItemService itemService;
 
     /**
      * 获取订单列表
@@ -52,6 +55,6 @@ public class OrderController {
     @GetMapping("/orders/{orderId}")
     @ApiOperation(value = "订单详情接口", notes = "传参为订单号")
     public Result<OrderDetailVO> orderDetailPage(@ApiParam(value = "订单号") @PathVariable("orderId") Long orderId) {
-        return ResultGenerator.genSuccessResult(orderService.getOrderByOrderId(orderId));
+        return ResultGenerator.genSuccessResult(itemService.getItemByOrderId(orderId));
     }
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.geekaca.mall.common.NewBeeMallException;
 import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.vo.OrderDetailVO;
+import com.geekaca.mall.controller.vo.OrderItemVO;
 import com.geekaca.mall.domain.Order;
 import com.geekaca.mall.mapper.OrderMapper;
 import com.geekaca.mall.utils.PageQueryUtil;
@@ -24,13 +25,5 @@ public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
         int totalOrders = orderMapper.getTotalOrders(pageUtil);
         PageResult pageResult = new PageResult(orderList, totalOrders, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
-    }
-
-    @Override
-    public OrderDetailVO getOrderByOrderId(Long orderId) {
-        Order order = orderMapper.selectByPrimaryKey(orderId);
-        OrderDetailVO orderDetailVO = new OrderDetailVO();
-        BeanUtil.copyProperties(order, orderDetailVO);
-        return orderDetailVO;
     }
 }

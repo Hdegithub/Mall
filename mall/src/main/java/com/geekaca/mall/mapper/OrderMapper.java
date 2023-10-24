@@ -1,5 +1,7 @@
 package com.geekaca.mall.mapper;
 
+import com.geekaca.mall.controller.vo.OrderDetailVO;
+import com.geekaca.mall.controller.vo.OrderItemVO;
 import com.geekaca.mall.domain.Order;
 import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +32,5 @@ public interface OrderMapper {
     List<Order> findOrderList(PageQueryUtil pageUtil);
 
     int getTotalOrders(PageQueryUtil pageUtil);
+
 }
