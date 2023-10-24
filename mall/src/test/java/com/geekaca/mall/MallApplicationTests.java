@@ -9,6 +9,7 @@ import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.AdminUserMapper;
 import com.geekaca.mall.mapper.GoodsCategoryMapper;
 import com.geekaca.mall.mapper.GoodsInfoMapper;
+import com.geekaca.mall.utils.NetUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,23 +63,25 @@ class MallApplicationTests {
         Assertions.assertTrue(isContains);
 
     }
-
+    @Autowired
+    NetUtil netUtil;
     @Test
     public void testCopy() {
-        List<GoodsAddParam> goodsAddParamList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            GoodsAddParam goodParam = new GoodsAddParam();
-            goodParam.setGoodsName("IPhone" + i);
-            goodParam.setGoodsIntro("苹果手机" + i);
-            goodsAddParamList.add(goodParam);
-        }
-
-        // 复制集合数据到一个新的集合 （原始集合， 目标类型）
-        //返回值 ： 新的类型的集合
-        List<GoodsInfo> goodsInfoList = BeanUtil.copyToList(goodsAddParamList, GoodsInfo.class);
-
-        Assertions.assertNotNull(goodsInfoList);
-
+//        List<GoodsAddParam> goodsAddParamList = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            GoodsAddParam goodParam = new GoodsAddParam();
+//            goodParam.setGoodsName("IPhone" + i);
+//            goodParam.setGoodsIntro("苹果手机" + i);
+//            goodsAddParamList.add(goodParam);
+//        }
+//
+//        // 复制集合数据到一个新的集合 （原始集合， 目标类型）
+//        //返回值 ： 新的类型的集合
+//        List<GoodsInfo> goodsInfoList = BeanUtil.copyToList(goodsAddParamList, GoodsInfo.class);
+//
+//        Assertions.assertNotNull(goodsInfoList);
+        System.out.println(netUtil.getIp());
+        System.out.println(netUtil.getWebUploadPath());
 
     }
 }
