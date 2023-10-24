@@ -37,6 +37,9 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
 
     @Override
     public Boolean saveUserAddress(UserAddress userAddress) {
+        if(userAddress.getDefaultFlag() != 0){
+            int defaultAddressCount = userAddressMapper.changeDefaultAddressFlag(userAddress.getUserId());
+        }
         int userCount = userAddressMapper.insertSelective(userAddress);
         if(userCount == 1){
             return true;
@@ -53,6 +56,9 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
 
     @Override
     public Boolean updateMallUserAddress(UserAddress userAddress) {
+        if(userAddress.getDefaultFlag() != 0){
+            int defaultAddressCount = userAddressMapper.changeDefaultAddressFlag(userAddress.getUserId());
+        }
         int userUpdateCount = userAddressMapper.updateByPrimaryKeySelective(userAddress);
         if(userUpdateCount == 1){
             return true;

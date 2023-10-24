@@ -29,7 +29,9 @@ public interface UserAddressMapper {
 
     //获取地址列表
     List<UserAddress> findAddressList(@Param("userId")Long userId);
+    //查找 是否存在默认地址
+    int changeDefaultAddressFlag(@Param("userId")Long userId);
 
-    UserAddress searchAddressById(@Param("userId")Long userId);
+    UserAddress searchAddressById(@Param("addressId")Long addressId);
     UserAddress getMyDefaultAddress(@Param("userId")Long userId);
 }
