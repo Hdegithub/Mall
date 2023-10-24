@@ -26,4 +26,31 @@ public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
         PageResult pageResult = new PageResult(orderList, totalOrders, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
+
+    @Override
+    public String checkDone(Long[] ids) {
+        if (orderMapper.checkDone(ids) == 0)
+        return "操作失败";
+        else {
+            return "success";
+        }
+    }
+
+    @Override
+    public String checkOut(Long[] ids) {
+        if (orderMapper.checkOut(ids) == 0)
+            return "操作失败";
+        else {
+            return "success";
+        }
+    }
+
+    @Override
+    public String closeOrder(Long[] ids) {
+        if (orderMapper.closeOrder(ids) == 0)
+            return "操作失败";
+        else {
+            return "success";
+        }
+    }
 }

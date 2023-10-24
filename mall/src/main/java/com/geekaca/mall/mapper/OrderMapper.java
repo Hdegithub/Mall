@@ -5,6 +5,7 @@ import com.geekaca.mall.controller.vo.OrderItemVO;
 import com.geekaca.mall.domain.Order;
 import com.geekaca.mall.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -32,5 +33,11 @@ public interface OrderMapper {
     List<Order> findOrderList(PageQueryUtil pageUtil);
 
     int getTotalOrders(PageQueryUtil pageUtil);
+
+    int closeOrder(@Param("orderIds") Long[] ids);
+
+    int checkOut(@Param("orderIds") Long[] ids);
+
+    int checkDone(@Param("orderIds") Long[] ids);
 
 }
