@@ -4,7 +4,6 @@ import com.geekaca.mall.controller.vo.OrderDetailVO;
 import com.geekaca.mall.controller.vo.OrderItemVO;
 import com.geekaca.mall.domain.OrderItem;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,6 +29,4 @@ public interface OrderItemMapper {
     int updateByPrimaryKey(OrderItem record);
 
     List<OrderItem> selectByOrderId(Long orderId);
-
-    int insertBatch(@Param("orderItems") List<OrderItem> orderItems);
 }
