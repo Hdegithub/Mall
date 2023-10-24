@@ -2,6 +2,7 @@ package com.geekaca.mall.controller.front;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.geekaca.mall.common.Constants;
+import com.geekaca.mall.common.NewBeeMallException;
 import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.front.param.SaveCartItemParam;
 import com.geekaca.mall.controller.front.param.ShoppingCartItemVO;
@@ -12,9 +13,11 @@ import com.geekaca.mall.utils.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +119,7 @@ public class MallCartController {
         Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
         Claim idClaim = stringClaimMap.get("id");
         String uid = idClaim.asString();
-        long userId = Long.parseLong(uid);
+        Long userId = Long.parseLong(uid);
         cartItemService.getMyShoppingCartItems(cartItemId);
         Boolean deleteResult = cartItemService.deleteById(cartItemId,userId);
         //删除成功
@@ -127,5 +130,38 @@ public class MallCartController {
         return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
     }
 
+    @GetMapping("/shop-cart/settle")
+    @ApiOperation(value = "根据购物项id数组查询购物项明细", notes = "确认订单页面使用")
+    public Result<List<ShoppingCartItemVO>> toSettle(Long[] cartItemIds,
+                                                     HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Claim> stringClaimMap = JwtUtil.verifyToken(token);
+        Claim idClaim = stringClaimMap.get("id");
+        String uid = idClaim.asString();
+        Long userId = Long.parseLong(uid);
+        if (cartItemIds.length < 1) {
+            NewBeeMallException.fail("参数异常");
+        }
+        int priceTotal = 0;
+        /**
+         * 要拿到购物项明细（商品名称，商品图片，商品单价，商品数量）
+         * 用户收货地址
+         * 支付信息
+         */
+        List<ShoppingCartItemVO> itemsForSettle = cartItemService.getCartItemsForSettle(Arrays.asList(cartItemIds), userId);
+        if (CollectionUtils.isEmpty(itemsForSettle)) {
+            //无数据则抛出异常
+            NewBeeMallException.fail("参数异常");
+        } else {
+            //总价
+            for (ShoppingCartItemVO shoppingCartItemVO : itemsForSettle) {
+                priceTotal += shoppingCartItemVO.getGoodsCount() * shoppingCartItemVO.getSellingPrice();
+            }
+            if (priceTotal < 1) {
+                NewBeeMallException.fail("价格异常");
+            }
+        }
+        return ResultGenerator.genSuccessResult(itemsForSettle);
+    }
 
 }

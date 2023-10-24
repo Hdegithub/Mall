@@ -16,7 +16,9 @@ import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -96,6 +98,21 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
             return false;
         }
         return cartItemMapper.deleteByPrimaryKey(cartItemId) > 0;
+    }
+
+    @Override
+    public List<ShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long userId) {
+        if (CollectionUtils.isEmpty(cartItemIds)) {
+            NewBeeMallException.fail("购物项不能为空");
+        }
+        List<ShoppingCartItemVO> cartItems = cartItemMapper.selectByUserIdAndCartItemIds(userId, cartItemIds);
+        if (CollectionUtils.isEmpty(cartItems)) {
+            NewBeeMallException.fail("购物项不能为空");
+        }
+        if (cartItems.size() != cartItemIds.size()) {
+            NewBeeMallException.fail("参数异常");
+        }
+        return cartItems;
     }
 
 }

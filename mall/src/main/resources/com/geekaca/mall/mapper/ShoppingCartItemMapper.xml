@@ -66,6 +66,21 @@
         where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
         limit #{number}
     </select>
+    <select id="selectByUserIdAndCartItemIds" resultMap="ShoppingCartItemVOMap">
+        SELECT
+        cart_item_id,t2.goods_id,goods_count,goods_name,goods_cover_img,selling_price
+        FROM
+        tb_newbee_mall_shopping_cart_item t1
+        LEFT JOIN
+        tb_newbee_mall_goods_info t2 ON t1.goods_id = t2.goods_id
+        WHERE
+        cart_item_id IN
+        <foreach item="id" collection="cartItemIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        AND user_id = #{userId,jdbcType=BIGINT}
+        AND is_deleted = 0
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tb_newbee_mall_shopping_cart_item

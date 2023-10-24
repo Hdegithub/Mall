@@ -52,4 +52,12 @@ public interface ShoppingCartItemService {
      * @return
      */
     Boolean deleteById(Long cartItemId, Long userId);
+
+    /**
+     * 根据userId和cartItemIds拿到对应的购物项记录
+     * @param asList
+     * @param userId
+     * @return
+     */
+    List<ShoppingCartItemVO> getCartItemsForSettle(List<Long> asList, Long userId);
 }
