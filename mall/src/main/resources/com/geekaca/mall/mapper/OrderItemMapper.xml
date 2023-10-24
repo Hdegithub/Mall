@@ -74,6 +74,18 @@
             <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
+    <insert id="insertBatch">
+        insert into tb_newbee_mall_order_item (order_id, goods_id,
+        goods_name, goods_cover_img, selling_price,
+        goods_count)
+        values
+        <foreach collection="orderItems" item="orderItem" separator=",">
+            (#{orderItem.orderId,jdbcType=BIGINT}, #{orderItem.goodsId,jdbcType=BIGINT},
+            #{orderItem.goodsName,jdbcType=VARCHAR}, #{orderItem.goodsCoverImg,jdbcType=VARCHAR},
+            #{orderItem.sellingPrice,jdbcType=INTEGER},
+            #{orderItem.goodsCount,jdbcType=INTEGER})
+        </foreach>
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.geekaca.mall.domain.OrderItem">
         update tb_newbee_mall_order_item
         <set>

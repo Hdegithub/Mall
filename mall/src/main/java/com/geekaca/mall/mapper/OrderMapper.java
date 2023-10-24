@@ -33,4 +33,5 @@ public interface OrderMapper {
 
     int getTotalOrders(PageQueryUtil pageUtil);
 
+    Order selectByOrderNo(String orderNo);
 }

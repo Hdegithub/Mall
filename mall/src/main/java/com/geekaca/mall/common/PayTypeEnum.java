@@ -9,8 +9,10 @@ public enum PayTypeEnum {
 
     DEFAULT(-1, "ERROR"),
     NOT_PAY(0, "无"),
-    ALI_PAY(1, "支付宝"),
-    WEIXIN_PAY(2, "微信支付");
+    PAY_SUCCESS(1, "支付成功"),
+    ALI_PAY(2, "支付宝"),
+    WEIXIN_PAY(3, "微信支付");
+
 
     private int payType;
 
@@ -44,5 +46,9 @@ public enum PayTypeEnum {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPayStatus() {
+        return payType;
     }
 }
