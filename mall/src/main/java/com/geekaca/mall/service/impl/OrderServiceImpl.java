@@ -29,27 +29,27 @@ public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
 
     @Override
     public String checkDone(Long[] ids) {
-        if (orderMapper.checkDone(ids) == 0)
-        return "操作失败";
-        else {
+        if (orderMapper.checkDone(ids) == 0) {
+            return "操作失败";
+        } else {
             return "success";
         }
     }
 
     @Override
     public String checkOut(Long[] ids) {
-        if (orderMapper.checkOut(ids) == 0)
+        if (orderMapper.checkOut(ids) == 0) {
             return "操作失败";
-        else {
+        } else {
             return "success";
         }
     }
 
     @Override
     public String closeOrder(Long[] ids) {
-        if (orderMapper.closeOrder(ids) == 0)
+        if (orderMapper.closeOrder(ids) == 0) {
             return "操作失败";
-        else {
+        } else {
             return "success";
         }
     }

@@ -37,6 +37,9 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
+
+        String requestURI = request.getRequestURI();
+        System.out.println("requestURI:" + requestURI);
         //拦截器 拦截发现你的请求没有携带token，说明你不是正规途径的访问
         if (token == null || StringUtils.isEmpty(token)) {
             throw new NotLoginException(Constants.NO_LOGIN, "未携带token");
