@@ -13,6 +13,7 @@ import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+
 import java.util.List;
 
 @Service
@@ -45,7 +46,9 @@ public class MallUserServiceImpl implements MallUserService {
         String token = JwtUtil.createToken(user.getUserId().toString(), user.getLoginName());
         //token储存进redis
         try (Jedis jedis = JedisPoolUtil.getJedis();) {
-            jedis.set("uid:user:" + user.getUserId(), token);
+            String userKey = "uid:user:" + user.getUserId();
+            jedis.set(userKey, token);
+            jedis.expire(userKey, 60 * 60 * 3);
         }
         return token;
     }
@@ -92,6 +95,6 @@ public class MallUserServiceImpl implements MallUserService {
 
     @Override
     public Boolean lockUsers(Long[] ids, int lockStatus) {
-        return userMapper.lockUserBatch(ids,lockStatus)==ids.length;
+        return userMapper.lockUserBatch(ids, lockStatus) == ids.length;
     }
 }
