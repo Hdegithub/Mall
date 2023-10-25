@@ -40,16 +40,16 @@ public class MallWebMvcConfig extends WebMvcConfigurationSupport {
      * 用户请求----拦截器----> controller
      * @param registry
      */
-//    @Override
-//    protected void addInterceptors(InterceptorRegistry registry) {
-//        //针对哪些访问路径 设置拦截器   ，后端接口地址一定不要和前端页面的地址冲突
-//        registry.addInterceptor(tokenInterceptor).addPathPatterns("/manage-api/**")
-//                .addPathPatterns("/api/**")
-//                //放行 后台的登陆
-//                .excludePathPatterns("/manage-api/v1/adminUser/login")
-//                //放行前台的注册和登陆
-//                .excludePathPatterns("/api/v1/user/register")
-//                .excludePathPatterns("/api/v1/user/login")
-//                .excludePathPatterns("/manage-api/v1/upload/**");
-//    }
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        //针对哪些访问路径 设置拦截器   ，后端接口地址一定不要和前端页面的地址冲突
+        registry.addInterceptor(tokenInterceptor).addPathPatterns("/manage-api/**")
+                .addPathPatterns("/api/**")
+                //放行 后台的登陆
+                .excludePathPatterns("/manage-api/v1/adminUser/login")
+                //放行前台的注册和登陆
+                .excludePathPatterns("/api/v1/user/register")
+                .excludePathPatterns("/api/v1/user/login")
+                .excludePathPatterns("/manage-api/v1/upload/**");
+    }
 }
