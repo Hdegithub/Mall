@@ -5,9 +5,11 @@ import com.geekaca.mall.controller.admin.param.AdminLoginParam;
 import com.geekaca.mall.domain.AdminUser;
 import com.geekaca.mall.mapper.AdminUserMapper;
 import com.geekaca.mall.service.AdminUserService;
+import com.geekaca.mall.utils.JedisPoolUtil;
 import com.geekaca.mall.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
@@ -27,6 +29,13 @@ public class AdminUserServiceImpl implements AdminUserService {
         //生成token
         //Long -》String
         String token = JwtUtil.createToken(adminUser.getAdminUserId().toString(), adminUser.getLoginUserName());
+        //把用户信息缓存到token
+        try(Jedis jedis = JedisPoolUtil.getJedis();) {
+            String key = "uid:admin:" + adminUser.getAdminUserId();
+            jedis.set(key, token);
+            //设置 指定key的过期时间（效果，到时间后，这个key value对会被自动删除）
+            jedis.expire(key, 60 * 60 * 3);
+        }
         return token;
     }
 }

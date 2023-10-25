@@ -45,7 +45,7 @@ public class JwtUtil {
         String token = JWT.create()
                 .withHeader(map)// 添加头部
                 //向token中加入自定义的信息
-                // 可以将基本信息放到claims中
+                // 可以将基本信息放到claims中   key value 都是自定义的
                 .withClaim("id", uid)//userId
                 .withClaim("userName", uname)//userName
 

@@ -1,6 +1,7 @@
 package com.geekaca.mall.config;
 
 import com.geekaca.mall.exceptions.LoginNameExsistsException;
+import com.geekaca.mall.exceptions.NotLoginException;
 import com.geekaca.mall.utils.Result;
 import com.geekaca.mall.utils.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,12 @@ public class ExceptionResolver {
     @ExceptionHandler(value = LoginNameExsistsException.class)
     public Result businessExceptionHandler(LoginNameExsistsException be){
         log.error(" 注册异常 ", be);
+        return ResultGenerator.genErrorResult(500, be.getMessage());
+    }
+
+    @ExceptionHandler(value = NotLoginException.class)
+    public Result notLoginExceptionHandler(NotLoginException be){
+        log.error(" token异常 ", be);
         return ResultGenerator.genErrorResult(500, be.getMessage());
     }
 }
