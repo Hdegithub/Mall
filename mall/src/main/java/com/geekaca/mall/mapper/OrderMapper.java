@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
-* @author 29484
-* @description 针对表【tb_newbee_mall_order】的数据库操作Mapper
-* @createDate 2023-10-23 15:37:59
-* @Entity com.geekaca.mall.domain.Order
-*/
+ * @author 29484
+ * @description 针对表【tb_newbee_mall_order】的数据库操作Mapper
+ * @createDate 2023-10-23 15:37:59
+ * @Entity com.geekaca.mall.domain.Order
+ */
 @Mapper
 public interface OrderMapper {
 
@@ -34,10 +34,10 @@ public interface OrderMapper {
 
     int getTotalOrders(PageQueryUtil pageUtil);
 
-    int closeOrder(@Param("orderIds") Long[] ids);
+    //配货
+    int checkDone(@Param("orderIds") List<Long> asList);
 
-    int checkOut(@Param("orderIds") Long[] ids);
-
-    int checkDone(@Param("orderIds") Long[] ids);
+    //出库
+    int checkOut(@Param("orderIds") List<Long> orderIds);
 
 }

@@ -1,17 +1,16 @@
 package com.geekaca.mall.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.geekaca.mall.common.NewBeeMallException;
+
 import com.geekaca.mall.common.ServiceResultEnum;
-import com.geekaca.mall.controller.vo.OrderDetailVO;
-import com.geekaca.mall.controller.vo.OrderItemVO;
 import com.geekaca.mall.domain.Order;
 import com.geekaca.mall.mapper.OrderMapper;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,30 +26,27 @@ public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
         return pageResult;
     }
 
+
     @Override
-    public String checkDone(Long[] ids) {
-        if (orderMapper.checkDone(ids) == 0) {
-            return "操作失败";
-        } else {
-            return "success";
+    @Transactional
+    public Boolean checkDone(Long[] ids) {
+        int i = orderMapper.checkDone(Arrays.asList(ids));
+        if (i>0){
+            return true;
+        }else {
+            return false;
         }
     }
 
-    @Override
-    public String checkOut(Long[] ids) {
-        if (orderMapper.checkOut(ids) == 0) {
-            return "操作失败";
-        } else {
-            return "success";
-        }
-    }
 
     @Override
-    public String closeOrder(Long[] ids) {
-        if (orderMapper.closeOrder(ids) == 0) {
-            return "操作失败";
-        } else {
-            return "success";
+    @Transactional
+    public Boolean checkOut(Long[] ids) {
+        int i = orderMapper.checkOut(Arrays.asList(ids));
+        if (i>0){
+            return true;
+        }else {
+            return false;
         }
     }
 }
