@@ -14,8 +14,8 @@ public class CorsFilterConfig {
         // 创建 CorsConfiguration 对象后添加配置
         CorsConfiguration config = new CorsConfiguration();
         // 设置放行哪些原始域
-        config.addAllowedOrigin("http://localhost:8080");
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOriginPattern("*");
+
         config.setAllowCredentials(true);
         // 放行哪些原始请求头部信息
         config.addAllowedHeader("*");
