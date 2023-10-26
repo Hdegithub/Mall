@@ -13,14 +13,7 @@ public class MallWebMvcConfig extends WebMvcConfigurationSupport {
     @Autowired
     private TokenInterceptor tokenInterceptor;
 
-    //设置允许跨域访问
-    @Override
-    protected void addCorsMappings(CorsRegistry registry) {
-        //任意请求路径                          允许来自任何域名的访问
-        registry.addMapping("/**").allowedOriginPatterns("*")
-                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowCredentials(true).maxAge(3600);
-    }
+
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -50,6 +43,7 @@ public class MallWebMvcConfig extends WebMvcConfigurationSupport {
                 //放行前台的注册和登陆
                 .excludePathPatterns("/api/v1/user/register")
                 .excludePathPatterns("/api/v1/user/login")
-                .excludePathPatterns("/manage-api/v1/upload/**");
+                .excludePathPatterns("/manage-api/v1/upload/**")
+                .excludePathPatterns("/api/v1/index-infos");
     }
 }

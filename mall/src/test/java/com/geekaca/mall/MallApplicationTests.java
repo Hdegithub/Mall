@@ -1,10 +1,6 @@
 package com.geekaca.mall;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.digest.MD5;
-import com.geekaca.mall.controller.admin.param.GoodsAddParam;
-import com.geekaca.mall.domain.GoodsCategory;
 import com.geekaca.mall.domain.GoodsInfo;
 import com.geekaca.mall.mapper.AdminUserMapper;
 import com.geekaca.mall.mapper.GoodsCategoryMapper;
@@ -14,13 +10,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+/**
+ *  测试 数据 自动回滚 ，JUnit单元测试 insert, delete,update不会更新到DB
+ *  同一个测试用例里面
+ *  add
+ *  select
+ */
+@Transactional
 class MallApplicationTests {
     @Autowired
     private AdminUserMapper adminUserMapper;
@@ -84,4 +85,6 @@ class MallApplicationTests {
         System.out.println(netUtil.getWebUploadPath());
 
     }
+
+
 }
