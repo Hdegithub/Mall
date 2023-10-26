@@ -1,5 +1,6 @@
 package com.geekaca.mall.controller.admin;
 
+import com.geekaca.mall.common.ServiceResultEnum;
 import com.geekaca.mall.controller.admin.param.BatchIdParam;
 import com.geekaca.mall.controller.vo.OrderDetailVO;
 import com.geekaca.mall.service.ItemService;
@@ -62,30 +63,48 @@ public class OrderController {
     @RequestMapping(value = "/orders/checkDone", method = RequestMethod.PUT)
     @ApiOperation(value = "修改订单状态为配货成功", notes = "批量修改")
     public Result checkDone(@RequestBody BatchIdParam batchIdParam) {
-        if (batchIdParam==null||batchIdParam.getIds().length < 1) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        Boolean checkDone = orderService.checkDone(batchIdParam.getIds());
-        if (checkDone==true) {
+        String checkDone = orderService.checkDone(batchIdParam.getIds());
+        if (ServiceResultEnum.SUCCESS.getResult().equals(checkDone)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("配货失败");
+            return ResultGenerator.genFailResult(checkDone);
         }
     }
+
     /**
      * 出库
      */
     @RequestMapping(value = "/orders/checkOut", method = RequestMethod.PUT)
     @ApiOperation(value = "修改订单状态为已出库", notes = "批量修改")
     public Result checkOut(@RequestBody BatchIdParam batchIdParam) {
-        if (batchIdParam==null||batchIdParam.getIds().length < 1) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        Boolean checkOut = orderService.checkOut(batchIdParam.getIds());
-        if (checkOut == true) {
+        String checkOut = orderService.checkOut(batchIdParam.getIds());
+        if (ServiceResultEnum.SUCCESS.getResult().equals(checkOut)) {
             return ResultGenerator.genSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("出库失败");
+            return ResultGenerator.genFailResult(checkOut);
+        }
+    }
+
+    /**
+     * 关闭订单
+     */
+    @RequestMapping(value = "/orders/close", method = RequestMethod.PUT)
+    @ApiOperation(value = "修改订单状态为商家关闭", notes = "批量修改")
+    public Result closeOrder(@RequestBody BatchIdParam batchIdParam) {
+        if (batchIdParam == null || batchIdParam.getIds().length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        String closeOrder = orderService.closeOrder(batchIdParam.getIds());
+        if (ServiceResultEnum.SUCCESS.getResult().equals(closeOrder)) {
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult(closeOrder);
         }
     }
 }

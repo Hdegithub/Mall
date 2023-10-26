@@ -40,4 +40,10 @@ public interface OrderMapper {
     //出库
     int checkOut(@Param("orderIds") List<Long> orderIds);
 
+    //查询订单状态
+    List<Order> selectByPrimaryKeys(@Param("orderIds") List<Long> orderIds);
+
+    //关闭订单
+    int closeOrder(@Param("orderIds") List<Long> orderIds, @Param("orderStatus") int orderStatus);
+
 }

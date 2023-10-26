@@ -18,7 +18,7 @@ public interface OrderService {
      * @param ids
      * @return
      */
-    Boolean checkDone(Long[] ids);
+    String checkDone(Long[] ids);
 
     /**
      * 出库
@@ -26,5 +26,7 @@ public interface OrderService {
      * @param ids
      * @return
      */
-    Boolean checkOut(Long[] ids);
+    String checkOut(Long[] ids);
+
+    String closeOrder(Long[] ids);
 }
