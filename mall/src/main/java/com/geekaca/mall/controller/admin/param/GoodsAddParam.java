@@ -3,6 +3,7 @@ package com.geekaca.mall.controller.admin.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+// mybatis
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Max;

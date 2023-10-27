@@ -13,6 +13,7 @@ import com.geekaca.mall.utils.BeanUtil;
 import com.geekaca.mall.utils.NumberUtil;
 import com.geekaca.mall.utils.PageQueryUtil;
 import com.geekaca.mall.utils.PageResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,36 +87,38 @@ public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
     @Override
     @Transactional
     public String checkOut(Long[] ids) {
+        /**
+         * 判断 这些订单的id
+         *
+         * 只要有任何一个订单的状态有问题，
+         * 那么整体的操作都失败
+         */
         //查询所有的订单 判断状态 修改状态和更新时间
         List<Order> orders = orderMapper.selectByPrimaryKeys(Arrays.asList(ids));
-        String orderNos = "";
-        if (!CollectionUtils.isEmpty(orders)) {
-            for (Order newBeeMallOrder : orders) {
-                if (newBeeMallOrder.getIsDeleted() == 1) {
-                    orderNos += newBeeMallOrder.getOrderNo() + " ";
-                    continue;
-                }
-                if (newBeeMallOrder.getOrderStatus() != 1 && newBeeMallOrder.getOrderStatus() != 2) {
-                    orderNos += newBeeMallOrder.getOrderNo() + " ";
-                }
+        //是否选中的这些订单，状态都是ok的
+//        boolean isAllOrderOk = true;
+        if (CollectionUtils.isEmpty(orders)) {
+            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+        }
+        for (Order newBeeMallOrder : orders) {
+            //发现已经 设置为删除的订单
+            if (newBeeMallOrder.getIsDeleted() == 1) {
+                log.error("出库错误（已经逻辑删除）: " + newBeeMallOrder.toString());
+                return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
-            if (!StringUtils.hasText(orderNos)) {
-                //订单状态正常 可以执行出库操作
-                if (orderMapper.checkOut(Arrays.asList(ids)) > 0) {
-                    return ServiceResultEnum.SUCCESS.getResult();
-                } else {
-                    return ServiceResultEnum.DB_ERROR.getResult();
-                }
-            }else {
-                //订单此时不可执行出库操作
-                if (orderNos.length() > 0 && orderNos.length() < 100) {
-                    return orderNos + "订单的状态不是支付成功或配货完成无法执行出库操作";
-                } else {
-                    return "你选择了太多状态不是支付成功或配货完成的订单，无法执行出库操作";
-                }
+            //针对当前的操作（出库） 出库逻辑，支持能针对  已支付的 ，已经配货的    这两种订单
+            if (newBeeMallOrder.getOrderStatus() != NewBeeMallOrderStatusEnum.ORDER_PAID.getOrderStatus()
+                    && newBeeMallOrder.getOrderStatus() != NewBeeMallOrderStatusEnum.ORDER_PACKAGED.getOrderStatus()) {
+                log.error("出库错误: " + newBeeMallOrder.toString());
+                return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();
             }
         }
-        return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+        //订单状态正常 可以执行出库操作
+        if (orderMapper.checkOut(Arrays.asList(ids)) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        } else {
+            return ServiceResultEnum.DB_ERROR.getResult();
+        }
     }
 
     @Override
