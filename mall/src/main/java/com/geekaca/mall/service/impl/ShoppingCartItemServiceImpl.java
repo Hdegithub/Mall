@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -101,18 +101,54 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
     }
 
     @Override
-    public List<ShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds, Long userId) {
+    public List<ShoppingCartItemVO> getCartItemsForSettle(List<Long> cartItemIds,Long userId) {
+        List<ShoppingCartItemVO> mallShoppingCartItemVOS = new ArrayList<>();
         if (CollectionUtils.isEmpty(cartItemIds)) {
             NewBeeMallException.fail("购物项不能为空");
         }
-        List<ShoppingCartItemVO> cartItems = cartItemMapper.selectByUserIdAndCartItemIds(userId, cartItemIds);
-        if (CollectionUtils.isEmpty(cartItems)) {
+        //查询出来 此次要结算的订单商品列表
+        List<ShoppingCartItem> newBeeMallShoppingCartItems = cartItemMapper.selectByUserIdAndCartItemIds(userId, cartItemIds);
+        if (CollectionUtils.isEmpty(newBeeMallShoppingCartItems)) {
             NewBeeMallException.fail("购物项不能为空");
         }
-        if (cartItems.size() != cartItemIds.size()) {
+        if (newBeeMallShoppingCartItems.size() != cartItemIds.size()) {
             NewBeeMallException.fail("参数异常");
         }
-        return cartItems;
+        return getNewBeeMallShoppingCartItemVOS(mallShoppingCartItemVOS, newBeeMallShoppingCartItems);
+    }
+
+    private List<ShoppingCartItemVO> getNewBeeMallShoppingCartItemVOS(List<ShoppingCartItemVO> cartItemVOList, List<ShoppingCartItem> newBeeMallShoppingCartItems) {
+        if (!CollectionUtils.isEmpty(newBeeMallShoppingCartItems)) {
+            //查询商品信息并做数据转换
+            // 把购物车 中的items 的商品id 都拿出来放在一个集合中
+            List<Long> goodsIds = newBeeMallShoppingCartItems.stream().map(ShoppingCartItem::getGoodsId).collect(Collectors.toList());
+            //查询这些商品的详细信息
+            List<GoodsInfo> goodsList = goodsInfoMapper.selectByPrimaryKeys(goodsIds);
+            Map<Long, GoodsInfo> goodsMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(goodsList)) {
+                goodsList.forEach(goodInfo ->{
+                    goodsMap.put(goodInfo.getGoodsId(), goodInfo);
+                });
+//                newBeeMallGoodsMap = newBeeMallGoods.stream().collect(Collectors.toMap(MallGoodsInfo::getGoodsId, Function.identity(), (entity1, entity2) -> entity1));
+            }
+            for (ShoppingCartItem cartItem : newBeeMallShoppingCartItems) {
+                ShoppingCartItemVO cartItemVO = new ShoppingCartItemVO();
+                BeanUtil.copyProperties(cartItem, cartItemVO);
+                if (goodsMap.containsKey(cartItem.getGoodsId())) {
+                    GoodsInfo goodsTemp = goodsMap.get(cartItem.getGoodsId());
+                    cartItemVO.setGoodsCoverImg(goodsTemp.getGoodsCoverImg());
+                    String goodsName = goodsTemp.getGoodsName();
+//                     字符串过长导致文字超出的问题
+                    if (goodsName.length() > 28) {
+                        goodsName = goodsName.substring(0, 28) + "...";
+                    }
+                    cartItemVO.setGoodsName(goodsName);
+                    cartItemVO.setSellingPrice(goodsTemp.getSellingPrice());
+                    cartItemVOList.add(cartItemVO);
+                }
+            }
+        }
+        return cartItemVOList;
     }
 
 }

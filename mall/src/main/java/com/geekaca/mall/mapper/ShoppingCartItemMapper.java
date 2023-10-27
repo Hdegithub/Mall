@@ -37,5 +37,7 @@ public interface ShoppingCartItemMapper {
 
     List<ShoppingCartItemVO> selectByUserId(@Param("userId") Long userId, @Param("number") int number);
 
-    List<ShoppingCartItemVO> selectByUserIdAndCartItemIds(@Param("userId")Long userId, @Param("cartItemIds")List<Long> cartItemIds);
+    List<ShoppingCartItem> selectByUserIdAndCartItemIds(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("cartItemIds") List<Long> cartItemIds);
+
+    int deleteBatch(List<Long> ids);
 }

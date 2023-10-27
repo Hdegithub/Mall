@@ -46,4 +46,9 @@ public interface OrderMapper {
     //关闭订单
     int closeOrder(@Param("orderIds") List<Long> orderIds, @Param("orderStatus") int orderStatus);
 
+    Order selectByOrderNo(String orderNo);
+
+    int getTotalNewBeeMallOrders(PageQueryUtil pageUtil);
+
+    List<Order> findNewBeeMallOrderList(PageQueryUtil pageUtil);
 }
