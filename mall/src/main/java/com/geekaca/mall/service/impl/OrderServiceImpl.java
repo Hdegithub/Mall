@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements com.geekaca.mall.service.OrderService {
     @Autowired
     private OrderMapper orderMapper;
